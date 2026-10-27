@@ -1022,9 +1022,95 @@
     }
 
     @media (max-width: 768px) {
+      .container { padding: 0 0.6rem; }
+      
+      /* Mobile Header Polish */
+      .app-header { padding: 0.35rem 0; }
+      .app-header-inner { gap: 0.4rem; }
+      .silvsquare-brand-link { gap: 0.45rem; }
+      .silvsquare-logo-img { height: 32px; padding: 2px 4px; }
+      .brand-title { font-size: 0.95rem; line-height: 1.15; }
+      .brand-subtitle { font-size: 0.64rem; display: block; }
       .header-desktop-tabs { display: none; }
-      .app-select { font-size: 0.82rem; padding: 0.45rem 0.6rem; }
-      .dropdowns-grid { grid-template-columns: 1fr 1fr; }
+      .header-add-btn { display: none !important; }
+      .header-radar-btn { display: none !important; }
+      .btn-catalog-link { padding: 0.32rem 0.65rem; font-size: 0.75rem; gap: 0.35rem; }
+      
+      /* Mobile Hero / Video Section Polish */
+      .hero-strip {
+        padding: 0.75rem 0.5rem 0.65rem;
+        margin-bottom: 0.65rem;
+        border-radius: 0 0 16px 16px;
+        background-position: center center;
+        background-size: cover;
+      }
+      .hero-badge {
+        font-size: 0.68rem;
+        padding: 0.18rem 0.6rem;
+        margin-bottom: 0.3rem;
+        line-height: 1.25;
+        white-space: normal;
+        max-width: 95%;
+      }
+      .hero-title {
+        font-size: 1.12rem;
+        font-weight: 800;
+        line-height: 1.35;
+        margin-bottom: 0.25rem;
+        word-break: break-word;
+        padding: 0 0.3rem;
+      }
+      .hero-desc {
+        font-size: 0.76rem;
+        line-height: 1.35;
+        color: #d6cdc4;
+        padding: 0 0.3rem;
+        margin: 0 auto;
+        word-break: break-word;
+      }
+
+      /* Mobile Filters & Dropdowns Polish */
+      .app-filter-strip {
+        padding: 0.65rem 0.6rem;
+        margin-bottom: 0.75rem;
+      }
+      .search-row { margin-bottom: 0.45rem; }
+      .search-input-mobile {
+        padding: 0.55rem 2.2rem 0.55rem 2.2rem;
+        font-size: 0.84rem;
+      }
+      .search-row i.search-icon {
+        right: 0.75rem;
+        font-size: 0.9rem;
+      }
+      .quick-status-pills {
+        gap: 0.3rem;
+        padding-bottom: 0.4rem;
+        margin-bottom: 0.45rem;
+      }
+      .pill-btn {
+        padding: 0.28rem 0.58rem;
+        font-size: 0.74rem;
+      }
+      .dropdowns-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem;
+      }
+      .filter-select-label {
+        font-size: 0.7rem;
+        margin-bottom: 0.15rem;
+      }
+      .app-select {
+        font-size: 0.76rem;
+        padding: 0.35rem 0.45rem;
+        height: 33px;
+      }
+      .controls-strip {
+        margin-top: 0.45rem;
+        padding-top: 0.45rem;
+      }
+      .results-badge { font-size: 0.75rem; }
+
       .cafes-grid { grid-template-columns: 1fr; }
       .profile-meta-grid { grid-template-columns: 1fr; }
       .card-actions-grid { grid-template-columns: repeat(4, 1fr); }
@@ -1053,14 +1139,14 @@
         </button>
       </div>
 
-      <div style="display: flex; gap: 0.5rem; align-items: center;">
-        <button onclick="openRadarModal()" class="tab-btn" style="background: rgba(232, 96, 17, 0.2); border: 1.5px solid var(--primary-accent); color:#fff; font-weight:800;" title="رادار الاستكشاف الميداني">
+      <div style="display: flex; gap: 0.4rem; align-items: center;" class="header-actions-wrap">
+        <button onclick="openRadarModal()" class="tab-btn header-radar-btn" style="background: rgba(232, 96, 17, 0.2); border: 1.5px solid var(--primary-accent); color:#fff; font-weight:800;" title="رادار الاستكشاف الميداني">
           <i class="fa-solid fa-satellite-dish" style="color:var(--primary-accent);"></i> <span class="hide-mobile">رادار الاستكشاف</span>
         </button>
         <a href="https://catalog.silvsquare.com/catalog" target="_blank" class="btn-catalog-link">
-          <i class="fa-solid fa-book-open"></i> <span class="hide-mobile">الكتالوج</span>
+          <i class="fa-solid fa-book-open"></i> <span>الكتالوج</span>
         </a>
-        <button onclick="openAddLeadModal()" class="tab-btn active" style="background: var(--primary-accent); color:#fff;">
+        <button onclick="openAddLeadModal()" class="tab-btn active header-add-btn" style="background: var(--primary-accent); color:#fff;">
           <i class="fa-solid fa-plus"></i> إضافة
         </button>
       </div>
@@ -1071,9 +1157,9 @@
   <div class="hero-strip">
     <div class="hero-overlay"></div>
     <div class="container hero-content">
-      <span class="hero-badge">مصنع سعودي في الخبر — من التصميم إلى باب الفرع</span>
-      <h1 class="hero-title">دليل كافيهات ومطاعم الشرقية — الأرقام والحسابات والعناوين</h1>
-      <p class="hero-desc">معلومات تفصيلية لـ 496 مشروعاً: أرقام الجوال والواتساب، حسابات الإنستقرام، العناوين بالشارع، والملاحة بالـ GPS.</p>
+      <span class="hero-badge"><i class="fa-solid fa-industry" style="margin-left:4px;"></i> مصنع سعودي بالخبر • من التصميم لباب الفرع</span>
+      <h1 class="hero-title">دليل كافيهات ومطاعم الشرقية — الأرقام والعناوين</h1>
+      <p class="hero-desc">معلومات 496 كافيه ومطعم: أرقام الجوال والواتساب، الإنستقرام، العناوين بالشارع، والملاحة بالـ GPS.</p>
     </div>
   </div>
 

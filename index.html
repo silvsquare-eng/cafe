@@ -1,0 +1,2298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دليل المبيعات والزيارات الميدانية لكافيهات الخبر وضواحيها | Sales Route & Distance Directory</title>
+  <meta name="description" content="دليل مناديب المبيعات والزيارات الميدانية لكافيهات الخبر والظهران، مرتب جغرافياً بالمسافة مع خرائط جوجل، مسارات الجولات، ونظام متابعة الزيارات.">
+  
+  <!-- خطوط عربية ولاتينية أنيقة -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- أيقونات FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-primary: #0d0b0a;
+      --bg-secondary: #171311;
+      --bg-card: rgba(28, 23, 20, 0.94);
+      --bg-card-hover: rgba(38, 31, 27, 0.98);
+      --accent-gold: #d4a373;
+      --accent-gold-light: #faedcd;
+      --accent-copper: #c86d51;
+      --accent-green: #2ecc71;
+      --accent-blue: #3498db;
+      --accent-amber: #f39c12;
+      --text-main: #f8f6f0;
+      --text-muted: #b7ada4;
+      --border-color: rgba(212, 163, 115, 0.22);
+      --border-color-hover: rgba(212, 163, 115, 0.55);
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+      --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 163, 115, 0.2);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --font-arabic: 'Tajawal', sans-serif;
+      --font-latin: 'Outfit', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-arabic);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      direction: rtl;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 12% 15%, rgba(200, 109, 81, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 88% 85%, rgba(212, 163, 115, 0.1) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* =========================================
+       الهيدر والواجهة الرئيسية (Hero)
+       ========================================= */
+    .hero-section {
+      position: relative;
+      padding: 4rem 0 3rem;
+      background: linear-gradient(180deg, #221914 0%, var(--bg-primary) 100%);
+      border-bottom: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .badge-sales {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 1.3rem;
+      background: rgba(46, 204, 113, 0.15);
+      border: 1px solid rgba(46, 204, 113, 0.4);
+      border-radius: var(--radius-full);
+      color: #6ef1a5;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .main-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #ffffff 40%, var(--accent-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      max-width: 780px;
+      margin: 0 auto 2rem;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* بار مسار المندوب وحساب المسافات السريع */
+    .sales-hud {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 0 auto 1.8rem;
+      max-width: 960px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      backdrop-filter: blur(12px);
+      text-align: center;
+    }
+
+    .hud-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .hud-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .hud-value {
+      font-family: var(--font-latin);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+
+    /* أزرار الإجراءات */
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: var(--radius-md);
+      font-family: var(--font-arabic);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-gps {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(46, 204, 113, 0.4);
+    }
+    .btn-gps:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(46, 204, 113, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+    .btn-secondary:hover {
+      background: rgba(212, 163, 115, 0.18);
+      border-color: var(--accent-gold);
+      color: var(--accent-gold-light);
+      transform: translateY(-2px);
+    }
+
+    /* =========================================
+       لوحة أدوات المندوب (المسافة والانطلاق)
+       ========================================= */
+    .main-content {
+      flex: 1;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .controls-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(15px);
+    }
+
+    /* صف نقطة الانطلاق السريعة */
+    .origin-selector-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: rgba(212, 163, 115, 0.08);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .origin-label {
+      font-weight: 700;
+      color: var(--accent-gold-light);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .origin-select {
+      flex: 1;
+      min-width: 250px;
+      padding: 0.65rem 1rem;
+      background: #15110f;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-arabic);
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .origin-select:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 1.35rem;
+      color: var(--accent-gold);
+      font-size: 1.15rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 1rem 3.4rem 1rem 3.2rem;
+      background: rgba(14, 12, 11, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-family: var(--font-arabic);
+      font-size: 1.05rem;
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 18px rgba(212, 163, 115, 0.3);
+      background: rgba(14, 12, 11, 0.95);
+    }
+
+    .clear-btn {
+      position: absolute;
+      left: 1.2rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0.3rem;
+    }
+
+    /* مسارات الزيارات الميدانية */
+    .routes-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .routes-title {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-routes {
+      display: flex;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+    }
+
+    .route-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1.15rem;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: var(--font-arabic);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .route-pill:hover {
+      background: rgba(212, 163, 115, 0.12);
+      color: var(--accent-gold-light);
+      border-color: var(--border-color);
+    }
+
+    .route-pill.active {
+      background: var(--accent-gold);
+      color: #171311;
+      font-weight: 800;
+      border-color: var(--accent-gold);
+      box-shadow: 0 4px 15px rgba(212, 163, 115, 0.4);
+    }
+
+    /* شريط النتائج والتحكم */
+    .results-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      padding-top: 1.1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .results-meta strong {
+      color: var(--accent-gold);
+      font-size: 1.1rem;
+    }
+
+    .view-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-sm {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.85rem;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: inherit;
+    }
+
+    .btn-sm:hover, .btn-sm.active {
+      background: var(--accent-gold);
+      color: #171311;
+      border-color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    /* =========================================
+       بطاقات الكافيهات الميدانية (Cards Grid)
+       ========================================= */
+    .cafes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .cafe-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(12px);
+    }
+
+    .cafe-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-color-hover);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+      gap: 0.5rem;
+    }
+
+    .card-title-group h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-title-en {
+      font-family: var(--font-latin);
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      font-weight: 500;
+    }
+
+    /* شارة المسافة البارزة */
+    .distance-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 800;
+      background: rgba(46, 204, 113, 0.18);
+      color: #5ef09b;
+      border: 1px solid rgba(46, 204, 113, 0.35);
+      white-space: nowrap;
+    }
+
+    .distance-badge.far {
+      background: rgba(212, 163, 115, 0.15);
+      color: var(--accent-gold-light);
+      border-color: var(--border-color);
+    }
+
+    .route-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: rgba(52, 152, 219, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(52, 152, 219, 0.3);
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+      align-self: flex-start;
+    }
+
+    .card-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .card-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+    }
+
+    .card-info-item i {
+      color: var(--accent-gold);
+      width: 18px;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .card-info-item span, .card-info-item a {
+      color: var(--text-main);
+      text-decoration: none;
+      transition: var(--transition);
+      line-height: 1.5;
+    }
+
+    .card-info-item a:hover {
+      color: var(--accent-gold);
+      text-decoration: underline;
+    }
+
+    /* صندوق استهداف المبيعات والملاحظة */
+    .sales-strategy-box {
+      background: rgba(200, 109, 81, 0.1);
+      border-right: 3px solid var(--accent-copper);
+      padding: 0.75rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--accent-gold-light);
+      margin-bottom: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .sales-strategy-box strong {
+      color: #fff;
+      display: block;
+      margin-bottom: 0.2rem;
+      font-size: 0.82rem;
+    }
+
+    /* شريط حالة الزيارة للمندوب */
+    .visit-status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 0.6rem 0.8rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .status-select {
+      background: #1b1614;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .status-select.done {
+      border-color: #2ecc71;
+      color: #2ecc71;
+      font-weight: 700;
+    }
+
+    .status-select.followup {
+      border-color: #f39c12;
+      color: #f39c12;
+      font-weight: 700;
+    }
+
+    .status-select.rejected {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+
+    /* أزرار الإجراءات */
+    .card-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr) auto;
+      gap: 0.5rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.6rem 0.65rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+
+    .action-call {
+      background: rgba(46, 204, 113, 0.18);
+      color: #4ade80;
+      border: 1px solid rgba(74, 222, 128, 0.3);
+    }
+    .action-call:hover {
+      background: #27ae60;
+      color: #fff;
+    }
+
+    .action-map {
+      background: rgba(52, 152, 219, 0.18);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+    .action-map:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .action-ig {
+      background: rgba(225, 48, 108, 0.18);
+      color: #f472b6;
+      border: 1px solid rgba(244, 114, 182, 0.3);
+    }
+    .action-ig:hover {
+      background: #db2777;
+      color: #fff;
+    }
+
+    .action-more {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      width: 42px;
+    }
+    .action-more:hover {
+      background: var(--accent-gold);
+      color: #171311;
+    }
+
+    /* =========================================
+       طريقة عرض الجدول المنظم (Table View)
+       ========================================= */
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      box-shadow: var(--shadow-card);
+      display: none;
+    }
+
+    .directory-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      font-size: 0.95rem;
+    }
+
+    .directory-table th {
+      background: rgba(212, 163, 115, 0.15);
+      color: var(--accent-gold-light);
+      padding: 1.1rem 1rem;
+      font-weight: 700;
+      border-bottom: 2px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    .directory-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+
+    .directory-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .table-cafe-name {
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .table-cafe-en {
+      font-family: var(--font-latin);
+      font-size: 0.82rem;
+      color: var(--accent-gold);
+    }
+
+    .table-links {
+      display: flex;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+
+    /* حالة عدم وجود نتائج */
+    .empty-state {
+      text-align: center;
+      padding: 4.5rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-lg);
+      margin-top: 1.5rem;
+    }
+
+    .empty-icon {
+      font-size: 3.8rem;
+      color: var(--accent-gold);
+      margin-bottom: 1.25rem;
+      opacity: 0.6;
+    }
+
+    /* النافذة المنبثقة للتفاصيل والملاحظات */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-card {
+      position: relative;
+      background: #181412;
+      border: 1px solid var(--border-color-hover);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 620px;
+      box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.95);
+      padding: 2.2rem;
+      animation: modalEnter 0.3s ease-out;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    @keyframes modalEnter {
+      from {
+        opacity: 0;
+        transform: scale(0.94) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.35rem;
+      left: 1.35rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      color: var(--text-muted);
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .modal-close:hover {
+      background: var(--accent-copper);
+      color: #fff;
+    }
+
+    .modal-header {
+      margin-bottom: 1.6rem;
+      padding-bottom: 1.1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-cafe-name {
+      font-size: 1.85rem;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .modal-cafe-en {
+      font-family: var(--font-latin);
+      color: var(--accent-gold);
+      font-size: 1.05rem;
+      display: block;
+    }
+
+    .modal-category {
+      display: inline-block;
+      margin-top: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--accent-gold-light);
+      background: rgba(212, 163, 115, 0.16);
+      padding: 0.25rem 0.9rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .modal-detail-row {
+      display: flex;
+      gap: 1.1rem;
+      align-items: flex-start;
+    }
+
+    .detail-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      background: rgba(212, 163, 115, 0.12);
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+
+    .detail-info strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-info p {
+      color: var(--text-main);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    /* صندوق ملاحظات المندوب داخل المودال */
+    .rep-notes-textarea {
+      width: 100%;
+      min-height: 90px;
+      padding: 0.75rem;
+      background: #110e0d;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: vertical;
+      margin-top: 0.4rem;
+    }
+    .rep-notes-textarea:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+
+    .modal-footer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
+
+    .btn-call { background: #1b5e20; color: #fff; }
+    .btn-call:hover { background: #2e7d32; }
+
+    .btn-map { background: #1565c0; color: #fff; }
+    .btn-map:hover { background: #1976d2; }
+
+    .btn-ig { background: #ad1457; color: #fff; }
+    .btn-ig:hover { background: #c2185b; }
+
+    /* إشعار التوست */
+    .toast-notification {
+      position: fixed;
+      bottom: 2.2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #231b17;
+      border: 1px solid var(--accent-gold);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 2rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+      font-weight: 700;
+    }
+    .toast-notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* التذييل */
+    .footer {
+      background: #090807;
+      border-top: 1px solid var(--border-color);
+      padding: 2.5rem 0;
+      margin-top: auto;
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a, .footer-links button {
+      color: var(--accent-gold);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: var(--transition);
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: inherit;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .main-title { font-size: 2.2rem; }
+      .cafes-grid { grid-template-columns: 1fr; }
+      .modal-footer { grid-template-columns: 1fr; }
+      .card-actions { grid-template-columns: 1fr 1fr 1fr auto; }
+      .sales-hud { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media print {
+      body { background: #fff !important; color: #000 !important; }
+      .hero-section, .controls-panel, .card-actions, .hero-actions, .footer, .btn-fav { display: none !important; }
+      .table-container { display: block !important; box-shadow: none !important; border: 1px solid #ccc !important; }
+      .directory-table th { background: #eee !important; color: #000 !important; }
+      .directory-table td { color: #000 !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- رأس الصفحة ولوحة المندوب -->
+  <header class="hero-section">
+    <div class="container hero-content">
+      <div class="badge-sales">
+        <i class="fa-solid fa-route"></i> دليل مناديب المبيعات والزيارات الميدانية بالمسافة
+      </div>
+      <h1 class="main-title">دليل كافيهات الخُبر وضواحيها للمناديب</h1>
+      <p class="subtitle">
+        مُرتب جغرافياً بحسب المسافة ومسارات الجولات الميدانية لتسهيل الزيارات المباشرة والبيع للمقاهي والمحامص، متضمناً أرقام الهواتف، التوجيه بخرائط GPS، ومتابعة حالة كل زيارة.
+      </p>
+
+      <!-- مؤشرات إنجاز المندوب (HUD) -->
+      <div class="sales-hud">
+        <div class="hud-card">
+          <span class="hud-title">إجمالي الكافيهات المتاحة</span>
+          <span class="hud-value" id="total-count">32</span>
+        </div>
+        <div class="hud-card">
+          <span class="hud-title">مسارات الجولات الميدانية</span>
+          <span class="hud-value">7 مسارات</span>
+        </div>
+        <div class="hud-card">
+          <span class="hud-title">الزيارات المنجزة</span>
+          <span class="hud-value" id="completed-visits-count" style="color: #2ecc71;">0</span>
+        </div>
+        <div class="hud-card">
+          <span class="hud-title">حالة المسافة (GPS)</span>
+          <span class="hud-value" id="gps-status-text" style="font-size: 1.1rem; color: #60a5fa;">محدد مسبقاً</span>
+        </div>
+      </div>
+
+      <!-- أزرار الإجراءات السريعة للمندوب -->
+      <div class="hero-actions">
+        <button id="get-gps-btn" class="btn btn-gps" title="حساب المسافة وترتيب الكافيهات من موقعك الحالي">
+          <i class="fa-solid fa-location-crosshairs"></i> ترتيب حسب موقعي الحالي (GPS)
+        </button>
+        <button id="download-sales-csv" class="btn btn-secondary">
+          <i class="fa-solid fa-file-excel"></i> تصدير خطة الزيارات (Excel)
+        </button>
+        <button onclick="window.print()" class="btn btn-secondary" title="طباعة مسار الزيارة">
+          <i class="fa-solid fa-print"></i> طباعة المسار
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- جسم التطبيق الرئيسي -->
+  <main class="container main-content">
+    
+    <!-- لوحة التحكم وتحديد نقطة الانطلاق والمسافة -->
+    <section class="controls-panel">
+      
+      <!-- اختيار نقطة انطلاق المندوب لحساب المسافات -->
+      <div class="origin-selector-row">
+        <span class="origin-label">
+          <i class="fa-solid fa-compass"></i> حساب المسافة من نقطة انطلاق المندوب:
+        </span>
+        <select id="origin-select" class="origin-select">
+          <option value="matal">1. مجمع المطل وكورنيش الخبر (نقطة انطلاق الواجهة)</option>
+          <option value="branda">2. مجمع برندة والحزام الأخضر (شارع البيبسي)</option>
+          <option value="patio">3. باتيو سنتر والخبر الشمالية</option>
+          <option value="bandariyah">4. حي البندرية والعقربية (طريق الأمير تركي)</option>
+          <option value="rakah">5. حي الراكة الجنوبية (طريق الأمير سلطان)</option>
+          <option value="ithra">6. الظهران ومركز إثراء وحي الدوحة</option>
+          <option value="tahlia">7. حي التحلية وجنوب الخبر</option>
+        </select>
+        <button id="apply-origin-btn" class="btn-sm active">
+          <i class="fa-solid fa-calculator"></i> إعادة حساب المسافات
+        </button>
+      </div>
+
+      <!-- شريط البحث الفوري -->
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="ابحث باسم الكافيه، الحي، أو نوع المنتجات المستهدفة (بن، مخبوزات، كراميل، فلات وايت...)"
+          autocomplete="off"
+        >
+        <button id="clear-search-btn" class="clear-btn" title="مسح البحث" style="display: none;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- مسارات الجولات الميدانية المجدولة -->
+      <div class="routes-container">
+        <div class="routes-title">
+          <i class="fa-solid fa-map-signs"></i> مسارات الجولات الميدانية (اختر مسار اليوم لتغطية الكافيهات القريبة وراء بعض):
+        </div>
+        <div class="filter-routes" id="routes-filter-container">
+          <button class="route-pill active" data-route="all">
+            <i class="fa-solid fa-border-all"></i> كل الكافيهات (32)
+          </button>
+          <button class="route-pill" data-route="مسار 1: الكورنيش وأجدان">
+            <i class="fa-solid fa-water"></i> مسار 1: الكورنيش وأجدان (10)
+          </button>
+          <button class="route-pill" data-route="مسار 2: الخبر الشمالية واليرموك">
+            <i class="fa-solid fa-city"></i> مسار 2: الشمالية واليرموك (4)
+          </button>
+          <button class="route-pill" data-route="مسار 3: البندرية والعقربية">
+            <i class="fa-solid fa-store"></i> مسار 3: البندرية والعقربية (4)
+          </button>
+          <button class="route-pill" data-route="مسار 4: الحزام والعليا والبستان">
+            <i class="fa-solid fa-building"></i> مسار 4: الحزام والعليا (8)
+          </button>
+          <button class="route-pill" data-route="مسار 5: الراكة والصفا">
+            <i class="fa-solid fa-road"></i> مسار 5: الراكة والصفا (2)
+          </button>
+          <button class="route-pill" data-route="مسار 6: الظهران والدوحة وإثراء">
+            <i class="fa-solid fa-landmark"></i> مسار 6: الظهران وإثراء (3)
+          </button>
+          <button class="route-pill" data-route="مسار 7: التحلية والجنوبية">
+            <i class="fa-solid fa-compass"></i> مسار 7: التحلية (1)
+          </button>
+        </div>
+      </div>
+
+      <!-- شريط الحالة والتبديل -->
+      <div class="results-meta">
+        <span id="results-count-text">مرتب حسب <strong>الأقرب لموقع الانطلاق</strong></span>
+        <div class="view-controls">
+          <button id="view-cards-btn" class="btn-sm active" title="عرض بطاقات المندوب">
+            <i class="fa-solid fa-table-cells-large"></i> بطاقات
+          </button>
+          <button id="view-table-btn" class="btn-sm" title="عرض جدول الزيارات">
+            <i class="fa-solid fa-table-list"></i> جدول الزيارات
+          </button>
+          <button id="sort-distance-btn" class="btn-sm" title="عكس ترتيب المسافة">
+            <i class="fa-solid fa-arrow-down-short-wide"></i> المسافة
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- شبكة البطاقات الميدانية -->
+    <section class="cafes-grid" id="cafes-grid"></section>
+
+    <!-- عرض جدول الزيارات للمندوب -->
+    <section class="table-container" id="table-view">
+      <table class="directory-table">
+        <thead>
+          <tr>
+            <th>المسار</th>
+            <th>الكافيه</th>
+            <th>المسافة</th>
+            <th>الحي / العنوان</th>
+            <th>الهاتف</th>
+            <th>حالة الزيارة</th>
+            <th>استهداف المبيعات</th>
+            <th>توجيه GPS</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </section>
+
+    <!-- حالة عدم وجود نتائج -->
+    <div class="empty-state" id="empty-state" style="display: none;">
+      <i class="fa-solid fa-mug-saucer empty-icon"></i>
+      <h3>لا توجد نتائج مطابقة للبحث أو الفلتر</h3>
+      <p>يمكنك تغيير مسار الجولة أو اختيار نقطة انطلاق أخرى.</p>
+      <button class="btn btn-secondary" id="reset-filters-btn">إعادة تعيين الفلاتر</button>
+    </div>
+
+  </main>
+
+  <!-- النافذة المنبثقة للتفاصيل وملاحظات الزيارة -->
+  <div class="modal-backdrop" id="details-modal" style="display: none;">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close-action" aria-label="إغلاق">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-header">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem;">
+          <div>
+            <h2 id="modal-name" class="modal-cafe-name">اسم الكافيه</h2>
+            <span class="modal-cafe-en" id="modal-en">Cafe English Name</span>
+          </div>
+          <span class="distance-badge" id="modal-dist">المسافة</span>
+        </div>
+        <span class="route-badge" id="modal-route" style="margin-top:0.6rem;">المسار الميداني</span>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-detail-row">
+          <div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="detail-info">
+            <strong>العنوان بالتفصيل</strong>
+            <p id="modal-loc">العنوان</p>
+          </div>
+        </div>
+
+        <div class="modal-detail-row">
+          <div class="detail-icon"><i class="fa-solid fa-phone"></i></div>
+          <div class="detail-info">
+            <strong>رقم الهاتف والتواصل</strong>
+            <p id="modal-tel">رقم الهاتف</p>
+          </div>
+        </div>
+
+        <div class="modal-detail-row">
+          <div class="detail-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <div class="detail-info">
+            <strong>استراتيجية المبيعات والتوريد</strong>
+            <p id="modal-strategy" style="color: #faedcd; font-weight: 500;"></p>
+          </div>
+        </div>
+
+        <div class="modal-detail-row">
+          <div class="detail-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+          <div class="detail-info" style="width: 100%;">
+            <strong>حالة الزيارة وملاحظات المندوب الميداني</strong>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.4rem; align-items: center;">
+              <select id="modal-status-select" class="status-select" style="padding: 0.5rem;">
+                <option value="none">⚪ لم تتم الزيارة</option>
+                <option value="done">🟢 تمت الزيارة (مهتم / تعاقد)</option>
+                <option value="followup">🟡 يحتاج متابعة (Follow-up)</option>
+                <option value="rejected">🔴 غير مهتم</option>
+              </select>
+            </div>
+            <textarea id="modal-rep-note" class="rep-notes-textarea" placeholder="سجل ملاحظتك هنا: اسم المسؤول، موعد الاتصال، الطلبات..."></textarea>
+            <button id="save-note-btn" class="btn-sm active" style="margin-top: 0.5rem;">
+              <i class="fa-solid fa-floppy-disk"></i> حفظ الملاحظة
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <a href="#" id="modal-call-btn" class="btn btn-call">
+          <i class="fa-solid fa-phone-volume"></i> اتصال مباشر
+        </a>
+        <a href="#" id="modal-maps-btn" target="_blank" rel="noopener noreferrer" class="btn btn-map">
+          <i class="fa-solid fa-diamond-turn-right"></i> توجيه بالخريطة (GPS)
+        </a>
+        <a href="#" id="modal-ig-btn" target="_blank" rel="noopener noreferrer" class="btn btn-ig">
+          <i class="fa-brands fa-instagram"></i> الإنستقرام
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- إشعار التوست -->
+  <div class="toast-notification" id="toast-notif">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toast-text">تم التحديث بنجاح!</span>
+  </div>
+
+  <!-- التذييل -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>دليل مناديب المبيعات والجولات الميدانية لكافيهات الخبر والظهران &copy; 2026. ترتيب فوري بالمسافة، توجيه GPS، وإدارة الزيارات.</p>
+      <div class="footer-links">
+        <button id="download-csv-footer"><i class="fa-solid fa-file-csv"></i> تنزيل جدول الزيارات CSV</button>
+        <button onclick="window.print()"><i class="fa-solid fa-print"></i> طباعة جدول الجولة الميدانية</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- كود البيانات والتطبيق كاملاً بالداخل بدون أي تبعيات -->
+  <script>
+    // قاعدة بيانات الكافيهات مع الإحداثيات ومسارات المبيعات
+    const CAFES_DATA = [
+      {
+        "id": 1,
+        "name": "كافيه بتيل",
+        "name_en": "Café Bateel",
+        "category": "مقهى ومطعم فاخر",
+        "area": "كورنيش الخبر",
+        "address": "مجمع المطل (Al Matal Complex)، طريق الأمير تركي، الكورنيش، الخبر",
+        "phone": "920012594",
+        "maps_url": "https://maps.google.com/?q=26.2975,50.2190",
+        "lat": 26.2975,
+        "lng": 50.2190,
+        "route_zone": "مسار 1: الكورنيش وأجدان",
+        "route_seq": 1,
+        "instagram": "@bateelgourmet",
+        "instagram_url": "https://www.instagram.com/bateelgourmet/",
+        "working_hours": "07:30 ص - 12:00 منتصف الليل",
+        "highlights": "إطلالة بحرية بانورامية، وجبات إفطار، تمور فاخرة وحلويات راقية",
+        "sales_notes": "عميل فاخر - استهداف منتجات البن والمخبوزات والحلويات والمستلزمات الراقية"
+      },
+      {
+        "id": 19,
+        "name": "كاي كافيه",
+        "name_en": "Cay Cafe",
+        "category": "مقهى بحري وقهوة مختصة",
+        "area": "مجمع المطل (الكورنيش)",
+        "address": "مجمع المطل (Al Matal Complex)، طريق الأمير تركي، كورنيش الخبر",
+        "phone": "+966533350708",
+        "maps_url": "https://maps.google.com/?q=26.2972,50.2188",
+        "lat": 26.2972,
+        "lng": 50.2188,
+        "route_zone": "مسار 1: الكورنيش وأجدان",
+        "route_seq": 2,
+        "instagram": "@caycafe.sa",
+        "instagram_url": "https://www.instagram.com/caycafe.sa/",
+        "working_hours": "07:00 ص - 12:00 منتصف الليل",
+        "highlights": "ملاصق لبتيل في مجمع المطل، إطلالة بحرية، قهوة مختصة",
+        "sales_notes": "استهلاك قهوة مختصة وسيروبات وحلويات ومشروبات موسمية"
+      },
+      {
+        "id": 20,
+        "name": "بيلجرافيان براسيري",
+        "name_en": "Belgravian Brasserie",
+        "category": "كافيه ومطعم فاخر أوروبي",
+        "area": "مجمع المطل (الكورنيش)",
+        "address": "الدور الأول، مجمع المطل، كورنيش الخبر",
+        "phone": "920012594",
+        "maps_url": "https://maps.google.com/?q=26.2977,50.2192",
+        "lat": 26.2977,
+        "lng": 50.2192,
+        "route_zone": "مسار 1: الكورنيش وأجدان",
+        "route_seq": 3,
+        "instagram": "@belgravianbrasserie",
+        "instagram_url": "https://www.instagram.com/belgravianbrasserie/",
+        "working_hours": "08:00 ص - 12:00 منتصف الليل",
+        "highlights": "في نفس مجمع المطل، فطور أوروبي، مخبوزات راقية ومشروبات ساخنة",
+        "sales_notes": "استهداف منتجات الفطور، المخبوزات، والشوكولاتة ومستلزمات المقاهي"
+      },
+      {
+        "id": 21,
+        "name": "بتيت باريس كافيه",
+        "name_en": "Petite Paris Cafe",
+        "category": "مقهى فرنسي كلاسيكي",
+        "area": "الكورنيش / الشارع السابع",
+        "address": "مجمع سفنث أفينيو، الشارع السابع المتفرع من شارع الأمير تركي، حي الكورنيش، الخبر",
+        "phone": "+966558282569",
+        "maps_url": "https://maps.google.com/?q=26.2952,50.2135",
+        "lat": 26.2952,
+        "lng": 50.2135,
+        "route_zone": "مسار 1: الكورنيش وأجدان",
+        "route_seq": 4,
+        "instagram": "@petitparisksa",
+        "instagram_url": "https://www.instagram.com/petitparisksa/",
+        "working_hours": "08:00 ص - 12:30 بعد منتصف الليل",
+        "highlights": "يبعد 500 متر عن المطل، طابع فرنسي كلاسيكي، فرنش توست وحلويات",
+        "sales_notes": "استهداف مواد تحضير المخبوزات، الكريمة، والصلصات الفرنسية"
+      },
+      {
+        "id": 12,
+        "name": "محمصة وكوفيكا",
+        "name_en": "Coveca Coffee Roasters",
+        "category": "قهوة مختصة ومحمصة",
+        "area": "أجدان ووك (الكورنيش)",
+        "address": "ممشى أجدان ووك (Ajdan Walk)، طريق الأمير تركي، حي الشاطئ، الخبر",
+        "phone": "+966551250056",
+        "maps_url": "https://maps.google.com/?q=26.2925,50.2178",
+        "lat": 26.2925,
+        "lng": 50.2178,
+        "route_zone": "مسار 1: الكورنيش وأجدان",
+        "route_seq": 5,
+        "instagram": "@coveca.sa",
+        "instagram_url": "https://www.instagram.com/coveca.sa/",
+        "working_hours": "07:00 ص - 12:30 بعد منتصف الليل",
+        "highlights": "في قلب أجدان ووك، حركة مشاة عالية جداً ومبيعات قوية",
+        "sales_notes": "محمصة متخصصة - استهداف بن أخضر، أكواب ومستلزمات تغليف، صيانة مكائن"
+      },
+      {
+        "id": 32,
+        "name": "ستاربكس ريزيرف أجدان ووك",
+        "name_en": "Starbucks Reserve - Ajdan Walk",
+        "category": "قهوة ريزيرف ومشروبات عالمية",
+        "area": "أجدان ووك (الكورنيش)",
+        "address": "مجمع أجدان ووك، تقاطع شارع الأمير تركي، حي الشاطئ، كورنيش الخبر",
+        "phone": "+966138064298",
+        "maps_url": "https://maps.google.com/?q=26.2928,50.2172",
+        "lat": 26.2928,
+        "lng": 50.2172,
+        "route_zone": "مسار 1: الكورنيش وأجدان",
+        "route_seq": 6,
+        "instagram": "@starbucksmiddleeast",
+        "instagram_url": "https://www.instagram.com/starbucksmiddleeast/",
+        "working_hours": "06:30 ص - 01:00 بعد منتصف الليل",
+        "highlights": "في ممشى أجدان بجوار كوفيكا، فرع ريزيرف ضخم",
+        "sales_notes": "سلسلة عالمية - التوريد عبر إدارة الشراء الإقليمية لمجموعة الشايع"
+      },
+      {
+        "id": 18,
+        "name": "مقهى ومخبز بول",
+        "name_en": "Paul Bakery & Cafe",
+        "category": "مقهى ومخبز فرنسي عريق",
+        "area": "أجدان ووترفرونت (الكورنيش)",
+        "address": "واجهة أجدان البحرية (Ajdan Waterfront)، كورنيش الخبر",
+        "phone": "8001263126",
+        "maps_url": "https://maps.google.com/?q=26.2918,50.2185",
+        "lat": 26.2918,
+        "lng": 50.2185,
+        "route_zone": "مسار 1: الكورنيش وأجدان",
+        "route_seq": 7,
+        "instagram": "@paularabia",
+        "instagram_url": "https://www.instagram.com/paularabia/",
+        "working_hours": "08:00 ص - 12:00 منتصف الليل",
+        "highlights": "واجهة أجدان البحرية، إقبال كبير على المخبوزات والحلويات",
+        "sales_notes": "استهداف منتجات الألبان والأجبان والمواد الأولية للمخابز"
+      },
+      {
+        "id": 6,
+        "name": "محمصة ومقهى شرق",
+        "name_en": "Shrq Coffee Roasters",
+        "category": "قهوة مختصة ومحمصة",
+        "area": "كورنيش الخبر (الواجهة)",
+        "address": "شارع الكورنيش، طريق الأمير تركي، الخبر",
+        "phone": "+966506878881",
+        "maps_url": "https://maps.google.com/?q=26.2872,50.2155",
+        "lat": 26.2872,
+        "lng": 50.2155,
+        "route_zone": "مسار 1: الكورنيش وأجدان",
+        "route_seq": 8,
+        "instagram": "@shrqcoffee",
+        "instagram_url": "https://www.instagram.com/shrqcoffee/",
+        "working_hours": "06:00 ص - 12:00 منتصف الليل",
+        "highlights": "على الكورنيش مباشرة، غرفة تحميص زجاجية حية داخل المقهى",
+        "sales_notes": "استهلاك عالي للبن، مناسب لبيع أدوات الباريستا وحبوب البن الأخضر"
+      },
+      {
+        "id": 7,
+        "name": "هاف مليون",
+        "name_en": "Half Million",
+        "category": "قهوة سريعة ومختصة",
+        "area": "الواجهة البحرية / الكورنيش",
+        "address": "الواجهة البحرية، طريق الأمير تركي، الخبر",
+        "phone": "920016232",
+        "maps_url": "https://maps.google.com/?q=26.2840,50.2170",
+        "lat": 26.2840,
+        "lng": 50.2170,
+        "route_zone": "مسار 1: الكورنيش وأجدان",
+        "route_seq": 9,
+        "instagram": "@halfmillion_sa",
+        "instagram_url": "https://www.instagram.com/halfmillion_sa/",
+        "working_hours": "مفتوح 24 ساعة",
+        "highlights": "على مسار الكورنيش، مبيعات ضخمة للسيارات والأفراد طوال اليوم",
+        "sales_notes": "كميات استهلاك هائلة، استهداف التوريدات الكبيرة والأكواب والكرتون"
+      },
+      {
+        "id": 17,
+        "name": "سولت البحر",
+        "name_en": "SALT Al Bahar",
+        "category": "مقهى ومطعم شاطئي حركي",
+        "area": "كورنيش الخبر الجنوبي",
+        "address": "شاطئ الكورنيش الجنوبي، طريق الأمير تركي، الخبر",
+        "phone": "920024788",
+        "maps_url": "https://maps.google.com/?q=26.2650,50.2240",
+        "lat": 26.2650,
+        "lng": 50.2240,
+        "route_zone": "مسار 1: الكورنيش وأجدان",
+        "route_seq": 10,
+        "instagram": "@findsalt.sa",
+        "instagram_url": "https://www.instagram.com/findsalt.sa/",
+        "working_hours": "08:00 ص - 01:00 بعد منتصف الليل",
+        "highlights": "نهاية مسار الكورنيش جنوباً، جلسات شاطئية ضخمة",
+        "sales_notes": "استهلاك مواد الحلى والآيسكريم والصوصات ومستلزمات الفود تراك"
+      },
+      {
+        "id": 3,
+        "name": "إيرث كافيه",
+        "name_en": "Urth Caffe",
+        "category": "مقهى ومخبز عضوي",
+        "area": "الخبر الشمالية (باتيو سنتر)",
+        "address": "مجمع باتيو سنتر (Patio Center)، طريق الأمير تركي / الشارع العاشر، الخبر الشمالية",
+        "phone": "920007498",
+        "maps_url": "https://maps.google.com/?q=26.3078,50.2072",
+        "lat": 26.3078,
+        "lng": 50.2072,
+        "route_zone": "مسار 2: الخبر الشمالية واليرموك",
+        "route_seq": 1,
+        "instagram": "@urthcaffesaudi",
+        "instagram_url": "https://www.instagram.com/urthcaffesaudi/",
+        "working_hours": "07:00 ص - 01:00 بعد منتصف الليل",
+        "highlights": "مجمع باتيو سنتر الراقي، علامة تجارية عالمية مرموقة",
+        "sales_notes": "استهداف المكونات العضوية (Organic)، شاي الماتشا، والخامات الطبيعية"
+      },
+      {
+        "id": 5,
+        "name": "دوز كافيه - فرع باتيو",
+        "name_en": "Dose Cafe - Patio",
+        "category": "سلسلة مقاهي عصرية",
+        "area": "الخبر الشمالية / باتيو",
+        "address": "مجمع باتيو سنتر، الخبر الشمالية / طريق الأمير حمود",
+        "phone": "+966562222411",
+        "maps_url": "https://maps.google.com/?q=26.3075,50.2068",
+        "lat": 26.3075,
+        "lng": 50.2068,
+        "route_zone": "مسار 2: الخبر الشمالية واليرموك",
+        "route_seq": 2,
+        "instagram": "@dosecafeksa",
+        "instagram_url": "https://www.instagram.com/dosecafeksa/",
+        "working_hours": "06:00 ص - 01:00 بعد منتصف الليل",
+        "highlights": "ملاصق لإيرث كافيه في باتيو، إقبال شبابي مكثف",
+        "sales_notes": "استهلاك قوي لمركزات ونكهات السبانش والبيستاشيو والقهوة"
+      },
+      {
+        "id": 24,
+        "name": "بارنز - الخبر الشمالية",
+        "name_en": "Barn's - Khobar North",
+        "category": "قهوة سريعة وأصيلة",
+        "area": "الخبر الشمالية",
+        "address": "شارع الملك خالد تقاطع 10، الخبر الشمالية",
+        "phone": "920006843",
+        "maps_url": "https://maps.google.com/?q=26.2995,50.2052",
+        "lat": 26.2995,
+        "lng": 50.2052,
+        "route_zone": "مسار 2: الخبر الشمالية واليرموك",
+        "route_seq": 3,
+        "instagram": "@barnscoffee",
+        "instagram_url": "https://www.instagram.com/barnscoffee/",
+        "working_hours": "مفتوح 24 ساعة",
+        "highlights": "خدمة سيارات سريعة وتدفق زبائن متواصل على مدار اليوم",
+        "sales_notes": "استهداف القهوة التركية والعربية والأكواب الورقية ذات الاستهلاك السريع"
+      },
+      {
+        "id": 10,
+        "name": "كوزمو كافيه",
+        "name_en": "Cosmo Cafe",
+        "category": "مقهى ومأكولات خفيفة",
+        "area": "حي اليرموك",
+        "address": "شارع الأمير تركي، حي اليرموك، الخبر",
+        "phone": "0553979791",
+        "maps_url": "https://maps.google.com/?q=26.2920,50.2105",
+        "lat": 26.2920,
+        "lng": 50.2105,
+        "route_zone": "مسار 2: الخبر الشمالية واليرموك",
+        "route_seq": 4,
+        "instagram": "@cosmocafe_sa",
+        "instagram_url": "https://www.instagram.com/cosmocafe_sa/",
+        "working_hours": "07:00 ص - 01:00 بعد منتصف الليل",
+        "highlights": "قريب جداً من الكورنيش واليرموك، أجواء مبهجة ووافل وحلويات",
+        "sales_notes": "استهداف خلطات الوافل، صوصات الشوكولاتة، الكبسولات ومشروبات القهوة"
+      },
+      {
+        "id": 8,
+        "name": "برو 92",
+        "name_en": "Brew92",
+        "category": "مقهى ومحمصة قهوة مختصة",
+        "area": "حي البندرية",
+        "address": "طريق الأمير تركي، حي البندرية، الخبر",
+        "phone": "+966138022830",
+        "maps_url": "https://maps.google.com/?q=26.2890,50.2048",
+        "lat": 26.2890,
+        "lng": 50.2048,
+        "route_zone": "مسار 3: البندرية والعقربية",
+        "route_seq": 1,
+        "instagram": "@brew92cafe",
+        "instagram_url": "https://www.instagram.com/brew92cafe/",
+        "working_hours": "06:00 ص - 12:00 منتصف الليل",
+        "highlights": "علامة رائدة بالبندرية، مقهى ومحمصة ومطبخ برانش متكامل",
+        "sales_notes": "مناسب لبيع محاصيل القهوة الخضراء، مواد المطبخ والبرانش، ومعدات الباريستا"
+      },
+      {
+        "id": 11,
+        "name": "محمصة ومقهى وودز",
+        "name_en": "Woods Cafe & Roastery",
+        "category": "قهوة مختصة ومحمصة",
+        "area": "حي البندرية",
+        "address": "طريق الأمير تركي، حي البندرية، الخبر",
+        "phone": "+966593977880",
+        "maps_url": "https://maps.google.com/?q=26.2862,50.2032",
+        "lat": 26.2862,
+        "lng": 50.2032,
+        "route_zone": "مسار 3: البندرية والعقربية",
+        "route_seq": 2,
+        "instagram": "@woods.ksa",
+        "instagram_url": "https://www.instagram.com/woods.ksa/",
+        "working_hours": "06:30 ص - 12:00 منتصف الليل",
+        "highlights": "يبعد دقيقة واحدة فقط عن برو 92، محمصة متميزة وتارت فريد",
+        "sales_notes": "استهداف أكياس التعبئة والتغليف للبن، حبات البن، ومكونات الحلى"
+      },
+      {
+        "id": 13,
+        "name": "مادلين مخبز ومقهى",
+        "name_en": "Madeleine Bakery & Café",
+        "category": "مقهى ومخبز فرنسي راقي",
+        "area": "حي العقربية",
+        "address": "شارع 16، حي العقربية (بالقرب من طريق الملك فهد)، الخبر",
+        "phone": "920010330",
+        "maps_url": "https://maps.google.com/?q=26.3021,50.1925",
+        "lat": 26.3021,
+        "lng": 50.1925,
+        "route_zone": "مسار 3: البندرية والعقربية",
+        "route_seq": 3,
+        "instagram": "@madeleineksa",
+        "instagram_url": "https://www.instagram.com/madeleineksa/",
+        "working_hours": "07:00 ص - 11:30 م",
+        "highlights": "أكبر مخبز ومقهى بالعقربية، استهلاك ضخم للمواد الأولية",
+        "sales_notes": "عميل رئيسي للمواد الأولية: دقيق، زبدة، شوكولاتة، كرتون وحقائب ورقية"
+      },
+      {
+        "id": 28,
+        "name": "محمصة ومقهى إكسير البن",
+        "name_en": "Elixir Bunn Coffee Roasters",
+        "category": "قهوة مختصة ومحمصة عريقة",
+        "area": "حي العقربية",
+        "address": "شارع 22، حي العقربية، الخبر الشمالية، الخبر",
+        "phone": "920013926",
+        "maps_url": "https://maps.google.com/?q=26.3002,50.1895",
+        "lat": 26.3002,
+        "lng": 50.1895,
+        "route_zone": "مسار 3: البندرية والعقربية",
+        "route_seq": 4,
+        "instagram": "@elixirbunn",
+        "instagram_url": "https://www.instagram.com/elixirbunn/",
+        "working_hours": "07:00 ص - 12:00 منتصف الليل",
+        "highlights": "على مسافة دقيقتين من مادلين، محمصة رائدة متخصصة",
+        "sales_notes": "استهداف أجهزة الفلترة وقطع الغيار، حبوب البن الأخضر والمحمص"
+      },
+      {
+        "id": 9,
+        "name": "جولت كافيه",
+        "name_en": "Jolt Cafe",
+        "category": "قهوة مختصة ولاونج",
+        "area": "الحزام الأخضر (مجمع برندة)",
+        "address": "مجمع برندة (Branda Complex)، طريق الأمير فيصل بن فهد، الحزام الأخضر، الخبر",
+        "phone": "+966583127328",
+        "maps_url": "https://maps.google.com/?q=26.3055,50.1982",
+        "lat": 26.3055,
+        "lng": 50.1982,
+        "route_zone": "مسار 4: الحزام والعليا والبستان",
+        "route_seq": 1,
+        "instagram": "@jolt.ksa",
+        "instagram_url": "https://www.instagram.com/jolt.ksa/",
+        "working_hours": "07:00 ص - 12:00 منتصف الليل",
+        "highlights": "مجمع برندة الحيوي، تواجد عدة كافيهات مجاورة مباشرة",
+        "sales_notes": "زيارة مجمع برندة تتيح مقابلة 3 كافيهات في مبنى واحد (جولت، رورال، مونرو)"
+      },
+      {
+        "id": 16,
+        "name": "رورال كافيه",
+        "name_en": "Rural Cafe",
+        "category": "مقهى ريفي وشرفة زجاجية",
+        "area": "الحزام الأخضر (مجمع برندة)",
+        "address": "مجمع برندة، طريق الأمير فيصل بن فهد (شارع البيبسي سابقاً)، الحزام الأخضر، الخبر",
+        "phone": "+966582246717",
+        "maps_url": "https://maps.google.com/?q=26.3053,50.1980",
+        "lat": 26.3053,
+        "lng": 50.1980,
+        "route_zone": "مسار 4: الحزام والعليا والبستان",
+        "route_seq": 2,
+        "instagram": "@rural.caffe",
+        "instagram_url": "https://www.instagram.com/rural.caffe/",
+        "working_hours": "07:00 ص - 12:30 بعد منتصف الليل",
+        "highlights": "في نفس مجمع برندة بجوار جولت، شرفة خارجية وتشيز كيك شهير",
+        "sales_notes": "استهداف منتجات التشيز كيك والحلويات، كبسولات ومواد تقديم شتوية"
+      },
+      {
+        "id": 29,
+        "name": "مونرو كافيه",
+        "name_en": "Monroe Cafe",
+        "category": "مقهى وجلسات هادئة",
+        "area": "الحزام الأخضر (أوان جاليري)",
+        "address": "أوان جاليري (Awan Gallery)، طريق الأمير فيصل بن فهد، الحزام الأخضر، الخبر",
+        "phone": "+966583127328",
+        "maps_url": "https://maps.google.com/?q=26.3060,50.1970",
+        "lat": 26.3060,
+        "lng": 50.1970,
+        "route_zone": "مسار 4: الحزام والعليا والبستان",
+        "route_seq": 3,
+        "instagram": "@monroecoffeeksa",
+        "instagram_url": "https://www.instagram.com/monroecoffeeksa/",
+        "working_hours": "04:00 م - 12:00 منتصف الليل",
+        "highlights": "على نفس طريق الأمير فيصل بن فهد (شارع البيبسي)، مجمع أوان جاليري",
+        "sales_notes": "استهداف أدوات التقديم الأنيقة ومشروبات القهوة والشاي الفاخر"
+      },
+      {
+        "id": 4,
+        "name": "محمصة ومقهى خطوة جمل",
+        "name_en": "Camel Step Coffee Roasters",
+        "category": "قهوة مختصة ومحمصة رائدة",
+        "area": "حي البستان",
+        "address": "شارع صلاح الدين الأيوبي (شارع البيبسي سابقاً)، حي البستان، الخبر",
+        "phone": "920000689",
+        "maps_url": "https://maps.google.com/?q=26.3128,50.1972",
+        "lat": 26.3128,
+        "lng": 50.1972,
+        "route_zone": "مسار 4: الحزام والعليا والبستان",
+        "route_seq": 4,
+        "instagram": "@camelstep",
+        "instagram_url": "https://www.instagram.com/camelstep/",
+        "working_hours": "06:30 ص - 11:30 م",
+        "highlights": "محمصة مركزية ومعرض أدوات باريستا، إقبال كبير للمختصين",
+        "sales_notes": "شريك محتمل وتوريد أدوات ومكائن ومستلزمات متقدمة"
+      },
+      {
+        "id": 22,
+        "name": "محمصة وسويل كافيه",
+        "name_en": "Soil Specialty Coffee",
+        "category": "قهوة مختصة ومحمصة",
+        "area": "حي الحزام الذهبي",
+        "address": "طريق الأمير حمود، حي الحزام الذهبي، الخبر",
+        "phone": "+966138097788",
+        "maps_url": "https://maps.google.com/?q=26.3112,50.1942",
+        "lat": 26.3112,
+        "lng": 50.1942,
+        "route_zone": "مسار 4: الحزام والعليا والبستان",
+        "route_seq": 5,
+        "instagram": "@soil.sa",
+        "instagram_url": "https://www.instagram.com/soil.sa/",
+        "working_hours": "07:00 ص - 11:30 م",
+        "highlights": "يبعد 400 متر عن خطوة جمل، محمصة قوية ومبيعات مستمرة",
+        "sales_notes": "استهلاك بن أخضر، ومواد التعبئة ومستلزمات السان سيباستيان"
+      },
+      {
+        "id": 15,
+        "name": "باركود كافيه",
+        "name_en": "Barcode Cafe",
+        "category": "قهوة مختصة",
+        "area": "حي الروابي",
+        "address": "شارع عبد القادر المهيدب، متفرع من شارع صلاح الدين، حي الروابي، الخبر",
+        "phone": "+966592524477",
+        "maps_url": "https://maps.google.com/?q=26.3150,50.1915",
+        "lat": 26.3150,
+        "lng": 50.1915,
+        "route_zone": "مسار 4: الحزام والعليا والبستان",
+        "route_seq": 6,
+        "instagram": "@barcodesa",
+        "instagram_url": "https://www.instagram.com/barcodesa/",
+        "working_hours": "06:30 ص - 12:00 منتصف الليل",
+        "highlights": "حي الروابي الهادئ، إقبال طلاب وعاملين عن بعد",
+        "sales_notes": "استهداف خلطات الفلات وايت، السناكات والكوكيز الجاهز للتقديم"
+      },
+      {
+        "id": 2,
+        "name": "محمصة ومقهى قاف",
+        "name_en": "Qaf Coffee Roasters",
+        "category": "قهوة مختصة ومحمصة",
+        "area": "حي العليا",
+        "address": "شارع بشار بن برد، حي العليا، الخبر",
+        "phone": "+966537702228",
+        "maps_url": "https://maps.google.com/?q=26.3172,50.1882",
+        "lat": 26.3172,
+        "lng": 50.1882,
+        "route_zone": "مسار 4: الحزام والعليا والبستان",
+        "route_seq": 7,
+        "instagram": "@qafcoffee",
+        "instagram_url": "https://www.instagram.com/qafcoffee/",
+        "working_hours": "06:30 ص - 12:00 منتصف الليل",
+        "highlights": "فرع حي العليا الرئيسي، محمصة كبرى بالمنطقة الشرقية",
+        "sales_notes": "استهداف مبيعات الجملة للبن، عقود التوريد، ومستلزمات الباريستا"
+      },
+      {
+        "id": 23,
+        "name": "نمق كافيه",
+        "name_en": "Namq Cafe",
+        "category": "قهوة مختصة وسلسلة سعودية",
+        "area": "حي الحزام الذهبي",
+        "address": "طريق الملك فيصل، حي الحزام الذهبي، الخبر",
+        "phone": "+966920033100",
+        "maps_url": "https://maps.google.com/?q=26.3105,50.1902",
+        "lat": 26.3105,
+        "lng": 50.1902,
+        "route_zone": "مسار 4: الحزام والعليا والبستان",
+        "route_seq": 8,
+        "instagram": "@namq_cafe",
+        "instagram_url": "https://www.instagram.com/namq_cafe/",
+        "working_hours": "مفتوح 24 ساعة",
+        "highlights": "موقع حيوي على طريق الملك فيصل، مفتوح 24 ساعة",
+        "sales_notes": "استهلاك قوي لكيكة العسل، الحلويات الجاهزة، وأكواب ومصاصات القهوة"
+      },
+      {
+        "id": 27,
+        "name": "إيت أوز كافيه",
+        "name_en": "8oz Coffee",
+        "category": "قهوة مختصة دقيقة التحضير",
+        "area": "حي الصفا",
+        "address": "حي الصفا، طريق الأمير متعب، الخبر",
+        "phone": "920028880",
+        "maps_url": "https://maps.google.com/?q=26.3195,50.1802",
+        "lat": 26.3195,
+        "lng": 50.1802,
+        "route_zone": "مسار 5: الراكة والصفا",
+        "route_seq": 1,
+        "instagram": "@8ozcafe",
+        "instagram_url": "https://www.instagram.com/8ozcafe/",
+        "working_hours": "06:00 ص - 01:00 بعد منتصف الليل",
+        "highlights": "موقع رابط بين الخبر والظهران، تركيز على قهوة 8 أونص",
+        "sales_notes": "استهداف حبوب البن المحمص، أكواب 8oz المخصصة، والحليب المبخر"
+      },
+      {
+        "id": 14,
+        "name": "أوفر دوز كافيه",
+        "name_en": "Overdose Coffee",
+        "category": "قهوة ومشروبات منعشة",
+        "area": "الراكة الجنوبية",
+        "address": "طريق الأمير سلطان، حي الراكة الجنوبية، الخبر",
+        "phone": "+966562222411",
+        "maps_url": "https://maps.google.com/?q=26.3552,50.1882",
+        "lat": 26.3552,
+        "lng": 50.1882,
+        "route_zone": "مسار 5: الراكة والصفا",
+        "route_seq": 2,
+        "instagram": "@overdosecoffeeksa",
+        "instagram_url": "https://www.instagram.com/overdosecoffeeksa/",
+        "working_hours": "مفتوح 24 ساعة",
+        "highlights": "طريق الأمير سلطان الحيوي بالراكة، خدمة درايف ثرو مستمرة 24 ساعة",
+        "sales_notes": "استهلاك عالي جداً للكراميل والمشروبات الباردة والثلج والأكواب البلاستيكية"
+      },
+      {
+        "id": 30,
+        "name": "أوريغو كافيه - مركز إثراء",
+        "name_en": "Origo Cafe - Ithra",
+        "category": "مقهى ثقافي وطبيعي",
+        "area": "الظهران (إثراء)",
+        "address": "داخل مركز الملك عبد العزيز الثقافي العالمي (إثراء)، الطريق الدائري، الظهران",
+        "phone": "8001221224",
+        "maps_url": "https://maps.google.com/?q=26.3352,50.1245",
+        "lat": 26.3352,
+        "lng": 50.1245,
+        "route_zone": "مسار 6: الظهران والدوحة وإثراء",
+        "route_seq": 1,
+        "instagram": "@ithra",
+        "instagram_url": "https://www.instagram.com/ithra/",
+        "working_hours": "09:00 ص - 11:00 م (يغلق الأحد)",
+        "highlights": "معلم الشرقية الأول الثقافي (إثراء)، زوار وسياح وفعاليات كبرى",
+        "sales_notes": "استهداف المخبوزات العضوية، القهوة المختصة العالية الجودة، والتغليف الصديق للبيئة"
+      },
+      {
+        "id": 31,
+        "name": "ڤيولا لاونج آند كافيه",
+        "name_en": "Violaa Lounge & Cafe",
+        "category": "لاونج ومقهى رياضي واجتماعي",
+        "area": "الظهران (الدوحة الجنوبية)",
+        "address": "شارع عبد الله بن العباس، حي الدوحة الجنوبية، الظهران",
+        "phone": "0549517300",
+        "maps_url": "https://maps.google.com/?q=26.3262,50.1482",
+        "lat": 26.3262,
+        "lng": 50.1482,
+        "route_zone": "مسار 6: الظهران والدوحة وإثراء",
+        "route_seq": 2,
+        "instagram": "@violaacafe1",
+        "instagram_url": "https://www.instagram.com/violaacafe1/",
+        "working_hours": "08:00 ص - 01:30 بعد منتصف الليل",
+        "highlights": "حي الدوحة القريب من جامعة البترول والمعادن وإثراء، لاونج واسع",
+        "sales_notes": "استهلاك وجبات خفيفة، حلى، ومشروبات باردة للشباب ومتابعي المباريات"
+      },
+      {
+        "id": 26,
+        "name": "كيان كافيه - الظهران والخبر",
+        "name_en": "Kyan Cafe - Dhahran",
+        "category": "مشروبات سريعة وقهوة اقتصادية",
+        "area": "حي الدوحة (الظهران) / الخزامى (الخبر)",
+        "address": "فرع حي الدوحة (الظهران) / طريق الملك سعود، الظهران",
+        "phone": "920011100",
+        "maps_url": "https://maps.google.com/?q=26.3242,50.1512",
+        "lat": 26.3242,
+        "lng": 50.1512,
+        "route_zone": "مسار 6: الظهران والدوحة وإثراء",
+        "route_seq": 3,
+        "instagram": "@kyan_cafe",
+        "instagram_url": "https://www.instagram.com/kyancafe/",
+        "working_hours": "مفتوح 24 ساعة",
+        "highlights": "أكبر سلسلة مشروبات سريعة واقتصادية، حركة سيارات مستمرة",
+        "sales_notes": "استهلاك ضخم للسيروبات، الأكواب البلاستيكية، الماصات، خلطات الكريب"
+      },
+      {
+        "id": 25,
+        "name": "عنوان القهوة - التحلية",
+        "name_en": "The Address Cafe - Tahlia",
+        "category": "مقهى ومشروبات ساخنة وباردة",
+        "area": "حي التحلية",
+        "address": "شارع المعارض، حي التحلية، الخبر",
+        "phone": "920015500",
+        "maps_url": "https://maps.google.com/?q=26.2355,50.2105",
+        "lat": 26.2355,
+        "lng": 50.2105,
+        "route_zone": "مسار 7: التحلية والجنوبية",
+        "route_seq": 1,
+        "instagram": "@addresscafe",
+        "instagram_url": "https://www.instagram.com/addresscafe/",
+        "working_hours": "مفتوح 24 ساعة",
+        "highlights": "خدمة سيارات وبوكسات جمعات للدوامات في جنوب الخبر والتحلية",
+        "sales_notes": "استهداف بوكسات الكرتون، حافظات الحرارة، والكراميل والسبانش"
+      }
+    ];
+
+    // إحداثيات نقاط الانطلاق المرجعية
+    const ORIGINS = {
+      matal: { name: "مجمع المطل والكورنيش", lat: 26.2975, lng: 50.2190 },
+      branda: { name: "مجمع برندة والحزام الأخضر", lat: 26.3055, lng: 50.1982 },
+      patio: { name: "باتيو سنتر والخبر الشمالية", lat: 26.3078, lng: 50.2072 },
+      bandariyah: { name: "البندرية والعقربية", lat: 26.2890, lng: 50.2048 },
+      rakah: { name: "الراكة الجنوبية (طريق الأمير سلطان)", lat: 26.3552, lng: 50.1882 },
+      ithra: { name: "مركز إثراء والظهران", lat: 26.3352, lng: 50.1245 },
+      tahlia: { name: "التحلية وجنوب الخبر", lat: 26.2355, lng: 50.2105 }
+    };
+
+    // نقطة الانطلاق الحالية (افتراضياً: مجمع المطل)
+    let currentOrigin = { ...ORIGINS.matal };
+    let isLiveGps = false;
+
+    // مسار الجولة الحالي
+    let activeRoute = 'all';
+    let searchQuery = '';
+    let currentView = 'cards';
+    let sortDistanceAsc = true;
+    let selectedCafeForModal = null;
+
+    // بيانات زيارات المندوب المحفوظة محلياً في localStorage
+    let visitStatuses = JSON.parse(localStorage.getItem('khobar_rep_visits') || '{}');
+    let visitNotes = JSON.parse(localStorage.getItem('khobar_rep_notes') || '{}');
+
+    // عناصر DOM
+    const cafesGrid = document.getElementById('cafes-grid');
+    const tableView = document.getElementById('table-view');
+    const tableBody = document.getElementById('table-body');
+    const searchInput = document.getElementById('search-input');
+    const clearSearchBtn = document.getElementById('clear-search-btn');
+    const originSelect = document.getElementById('origin-select');
+    const applyOriginBtn = document.getElementById('apply-origin-btn');
+    const getGpsBtn = document.getElementById('get-gps-btn');
+    const gpsStatusText = document.getElementById('gps-status-text');
+    const completedVisitsEl = document.getElementById('completed-visits-count');
+    const routesFilterContainer = document.getElementById('routes-filter-container');
+    const resultsCountText = document.getElementById('results-count-text');
+    const emptyState = document.getElementById('empty-state');
+    const resetFiltersBtn = document.getElementById('reset-filters-btn');
+    const viewCardsBtn = document.getElementById('view-cards-btn');
+    const viewTableBtn = document.getElementById('view-table-btn');
+    const sortDistanceBtn = document.getElementById('sort-distance-btn');
+    const toastNotif = document.getElementById('toast-notif');
+    const toastText = document.getElementById('toast-text');
+
+    // عناصر المودال
+    const detailsModal = document.getElementById('details-modal');
+    const modalCloseAction = document.getElementById('modal-close-action');
+    const modalName = document.getElementById('modal-name');
+    const modalEn = document.getElementById('modal-en');
+    const modalDist = document.getElementById('modal-dist');
+    const modalRoute = document.getElementById('modal-route');
+    const modalLoc = document.getElementById('modal-loc');
+    const modalTel = document.getElementById('modal-tel');
+    const modalStrategy = document.getElementById('modal-strategy');
+    const modalStatusSelect = document.getElementById('modal-status-select');
+    const modalRepNote = document.getElementById('modal-rep-note');
+    const saveNoteBtn = document.getElementById('save-note-btn');
+    const modalCallBtn = document.getElementById('modal-call-btn');
+    const modalMapsBtn = document.getElementById('modal-maps-btn');
+    const modalIgBtn = document.getElementById('modal-ig-btn');
+
+    // دالة حساب المسافة الحقيقية بالكيلومتر باستخدام صيغة Haversine
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371; // نصف قطر الأرض بالكيلومتر
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c; // المسافة بالكيلومتر
+    }
+
+    // تنسيق عرض المسافة (بالمتر إذا أقل من 1 كم، وبالكيلومتر إذا أكثر)
+    function formatDistance(distKm) {
+      if (distKm < 1) {
+        const meters = Math.round(distKm * 1000);
+        return `${meters} متر`;
+      }
+      return `${distKm.toFixed(1)} كم`;
+    }
+
+    // إشعار سريع
+    function showToast(msg) {
+      toastText.textContent = msg;
+      toastNotif.classList.add('show');
+      setTimeout(() => {
+        toastNotif.classList.remove('show');
+      }, 2500);
+    }
+
+    // تحديث عداد الزيارات المنجزة للمندوب
+    function updateCompletedVisits() {
+      let count = 0;
+      Object.values(visitStatuses).forEach(status => {
+        if (status === 'done') count++;
+      });
+      if (completedVisitsEl) {
+        completedVisitsEl.textContent = `${count} من 32`;
+      }
+    }
+
+    // تجهيز البيانات بحساب المسافة والترتيب
+    function getProcessedCafes() {
+      // 1. حساب المسافة لكل كافيه من نقطة الانطلاق
+      const list = CAFES_DATA.map(cafe => {
+        const dist = calculateDistance(currentOrigin.lat, currentOrigin.lng, cafe.lat, cafe.lng);
+        return {
+          ...cafe,
+          distanceKm: dist,
+          distanceFormatted: formatDistance(dist),
+          status: visitStatuses[cafe.id] || 'none',
+          note: visitNotes[cafe.id] || ''
+        };
+      });
+
+      // 2. الفلترة حسب مسار الجولة
+      let filtered = list.filter(cafe => {
+        if (activeRoute !== 'all' && cafe.route_zone !== activeRoute) {
+          return false;
+        }
+
+        // 3. البحث
+        if (searchQuery.trim() !== '') {
+          const q = searchQuery.toLowerCase().trim();
+          const matchName = cafe.name.toLowerCase().includes(q) || cafe.name_en.toLowerCase().includes(q);
+          const matchArea = cafe.area.toLowerCase().includes(q) || cafe.address.toLowerCase().includes(q);
+          const matchSales = cafe.sales_notes.toLowerCase().includes(q);
+          if (!matchName && !matchArea && !matchSales) return false;
+        }
+
+        return true;
+      });
+
+      // 4. الترتيب بالمسافة (الأقرب أولاً) أو بالتسلسل داخل المسار
+      filtered.sort((a, b) => {
+        return sortDistanceAsc ? (a.distanceKm - b.distanceKm) : (b.distanceKm - a.distanceKm);
+      });
+
+      return filtered;
+    }
+
+    // إعادة رسم الواجهة
+    function render() {
+      const data = getProcessedCafes();
+      resultsCountText.innerHTML = `يتم عرض <strong>${data.length}</strong> كافيه ومحمصة (مرتبة بالأقرب لـ <strong>${currentOrigin.name}</strong>)`;
+
+      if (data.length === 0) {
+        cafesGrid.style.display = 'none';
+        tableView.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+
+      if (currentView === 'cards') {
+        cafesGrid.style.display = 'grid';
+        tableView.style.display = 'none';
+        renderCards(data);
+      } else {
+        cafesGrid.style.display = 'none';
+        tableView.style.display = 'block';
+        renderTable(data);
+      }
+
+      updateCompletedVisits();
+    }
+
+    // رسم البطاقات
+    function renderCards(data) {
+      cafesGrid.innerHTML = data.map((cafe, index) => {
+        const cleanPhone = cafe.phone.replace(/[^0-9+]/g, '');
+        const isClose = cafe.distanceKm <= 2.5;
+
+        return `
+          <article class="cafe-card">
+            <div>
+              <div class="card-top">
+                <div class="card-title-group">
+                  <h3><span style="color:var(--accent-gold); font-size:1.1rem; margin-left:0.3rem;">#${index + 1}</span> ${cafe.name}</h3>
+                  <span class="card-title-en">${cafe.name_en}</span>
+                </div>
+                <div class="distance-badge ${isClose ? '' : 'far'}" title="المسافة المباشرة">
+                  <i class="fa-solid fa-person-walking"></i> ${cafe.distanceFormatted}
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+                <span class="route-badge">${cafe.route_zone}</span>
+                <span style="font-size:0.8rem; color:var(--text-muted);"><i class="fa-regular fa-clock"></i> ${cafe.working_hours}</span>
+              </div>
+
+              <div class="card-info-list">
+                <div class="card-info-item">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <span><strong>${cafe.area}</strong> - ${cafe.address}</span>
+                </div>
+                <div class="card-info-item">
+                  <i class="fa-solid fa-phone"></i>
+                  <a href="tel:${cleanPhone}" title="اتصال مباشر">${cafe.phone}</a>
+                </div>
+              </div>
+
+              <!-- صندوق استراتيجية المبيعات -->
+              <div class="sales-strategy-box">
+                <strong><i class="fa-solid fa-bullseye"></i> استهداف البيع للمندوب:</strong>
+                ${cafe.sales_notes}
+              </div>
+
+              <!-- شريط حالة الزيارة الميدانية للمندوب -->
+              <div class="visit-status-row">
+                <span style="font-size:0.85rem; font-weight:700;"><i class="fa-solid fa-clipboard-user"></i> حالة الزيارة:</span>
+                <select class="status-select ${cafe.status}" onchange="changeVisitStatus(${cafe.id}, this.value)">
+                  <option value="none" ${cafe.status === 'none' ? 'selected' : ''}>⚪ لم تتم</option>
+                  <option value="done" ${cafe.status === 'done' ? 'selected' : ''}>🟢 تم البيع / مهتم</option>
+                  <option value="followup" ${cafe.status === 'followup' ? 'selected' : ''}>🟡 يحتاج متابعة</option>
+                  <option value="rejected" ${cafe.status === 'rejected' ? 'selected' : ''}>🔴 غير مهتم</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- أزرار الإجراءات الميدانية -->
+            <div class="card-actions">
+              <a href="tel:${cleanPhone}" class="action-btn action-call" title="اتصال هاتفي مباشر">
+                <i class="fa-solid fa-phone"></i> اتصال
+              </a>
+              <a href="${cafe.maps_url}" target="_blank" rel="noopener noreferrer" class="action-btn action-map" title="تشغيل ملاحة خرائط جوجل للذهاب للكافيه">
+                <i class="fa-solid fa-diamond-turn-right"></i> ملاحة GPS
+              </a>
+              <a href="${cafe.instagram_url}" target="_blank" rel="noopener noreferrer" class="action-btn action-ig" title="زيارة حساب الإنستقرام">
+                <i class="fa-brands fa-instagram"></i> إنستقرام
+              </a>
+              <button class="action-btn action-more" onclick="openDetails(${cafe.id})" title="عرض التفاصيل وتسجيل ملاحظة">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // رسم الجدول
+    function renderTable(data) {
+      tableBody.innerHTML = data.map((cafe, index) => {
+        const cleanPhone = cafe.phone.replace(/[^0-9+]/g, '');
+        return `
+          <tr>
+            <td><span class="route-badge" style="margin:0;">${cafe.route_zone}</span></td>
+            <td>
+              <div class="table-cafe-name">
+                <span>#${index + 1} ${cafe.name}</span>
+                <span class="table-cafe-en">${cafe.name_en}</span>
+              </div>
+            </td>
+            <td>
+              <span class="distance-badge" style="font-size:0.8rem;">
+                <i class="fa-solid fa-person-walking"></i> ${cafe.distanceFormatted}
+              </span>
+            </td>
+            <td><small>${cafe.area} - ${cafe.address}</small></td>
+            <td><a href="tel:${cleanPhone}" style="color:var(--accent-gold); font-weight:700; text-decoration:none;">${cafe.phone}</a></td>
+            <td>
+              <select class="status-select ${cafe.status}" onchange="changeVisitStatus(${cafe.id}, this.value)" style="font-size:0.8rem;">
+                <option value="none" ${cafe.status === 'none' ? 'selected' : ''}>⚪ لم تتم</option>
+                <option value="done" ${cafe.status === 'done' ? 'selected' : ''}>🟢 مهتم / تعاقد</option>
+                <option value="followup" ${cafe.status === 'followup' ? 'selected' : ''}>🟡 متابعة</option>
+                <option value="rejected" ${cafe.status === 'rejected' ? 'selected' : ''}>🔴 غير مهتم</option>
+              </select>
+            </td>
+            <td><small style="color:#faedcd;">${cafe.sales_notes}</small></td>
+            <td>
+              <div class="table-links">
+                <a href="${cafe.maps_url}" target="_blank" class="btn-sm" style="color:#60a5fa;" title="توجيه GPS"><i class="fa-solid fa-diamond-turn-right"></i> GPS</a>
+                <button onclick="openDetails(${cafe.id})" class="btn-sm" title="تفاصيل وملاحظة"><i class="fa-solid fa-pen-to-square"></i></button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // تغيير حالة الزيارة للمندوب
+    window.changeVisitStatus = function(id, newStatus) {
+      visitStatuses[id] = newStatus;
+      localStorage.setItem('khobar_rep_visits', JSON.stringify(visitStatuses));
+      showToast('تم تحديث حالة الزيارة ✅');
+      render();
+    };
+
+    // فتح نافذة التفاصيل وتسجيل الملاحظات
+    window.openDetails = function(id) {
+      const data = getProcessedCafes();
+      const cafe = data.find(c => c.id === id);
+      if (!cafe) return;
+
+      selectedCafeForModal = cafe;
+      modalName.textContent = cafe.name;
+      modalEn.textContent = cafe.name_en;
+      modalDist.innerHTML = `<i class="fa-solid fa-person-walking"></i> تبعد ${cafe.distanceFormatted}`;
+      modalRoute.textContent = `${cafe.route_zone} - محطة رقم ${cafe.route_seq}`;
+      modalLoc.textContent = `${cafe.area} - ${cafe.address}`;
+      modalTel.innerHTML = `<a href="tel:${cafe.phone.replace(/[^0-9+]/g, '')}" style="color:var(--accent-gold); font-weight:700;">${cafe.phone}</a>`;
+      modalStrategy.textContent = cafe.sales_notes;
+
+      modalStatusSelect.value = visitStatuses[cafe.id] || 'none';
+      modalRepNote.value = visitNotes[cafe.id] || '';
+
+      const cleanPhone = cafe.phone.replace(/[^0-9+]/g, '');
+      modalCallBtn.href = `tel:${cleanPhone}`;
+      modalMapsBtn.href = cafe.maps_url;
+      modalIgBtn.href = cafe.instagram_url;
+
+      detailsModal.style.display = 'flex';
+    };
+
+    // حفظ ملاحظة المندوب من داخل المودال
+    saveNoteBtn.addEventListener('click', () => {
+      if (!selectedCafeForModal) return;
+      const id = selectedCafeForModal.id;
+      visitStatuses[id] = modalStatusSelect.value;
+      visitNotes[id] = modalRepNote.value;
+
+      localStorage.setItem('khobar_rep_visits', JSON.stringify(visitStatuses));
+      localStorage.setItem('khobar_rep_notes', JSON.stringify(visitNotes));
+
+      showToast('تم حفظ ملاحظات الزيارة بنجاح 💾');
+      detailsModal.style.display = 'none';
+      render();
+    });
+
+    modalCloseAction.addEventListener('click', () => detailsModal.style.display = 'none');
+    detailsModal.addEventListener('click', (e) => {
+      if (e.target === detailsModal) detailsModal.style.display = 'none';
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') detailsModal.style.display = 'none';
+    });
+
+    // تبديل نقطة الانطلاق
+    applyOriginBtn.addEventListener('click', () => {
+      const selectedKey = originSelect.value;
+      currentOrigin = { ...ORIGINS[selectedKey] };
+      isLiveGps = false;
+      gpsStatusText.textContent = currentOrigin.name;
+      gpsStatusText.style.color = 'var(--accent-gold)';
+      showToast(`تم حساب المسافات انطلاقاً من: ${currentOrigin.name}`);
+      render();
+    });
+
+    // استخدام موقع المندوب الحي عبر GPS
+    getGpsBtn.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        alert('خاصية تحديد الموقع الجغرافي غير مدعومة في متصفحك.');
+        return;
+      }
+      gpsStatusText.textContent = 'جارٍ تحديد موقعك...';
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          currentOrigin = {
+            name: "موقعك الحالي الفعلي (GPS)",
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+          };
+          isLiveGps = true;
+          gpsStatusText.textContent = "📍 موقعك الحي (GPS)";
+          gpsStatusText.style.color = "#2ecc71";
+          showToast('تم تحديد موقعك بدقة وترتيب الكافيهات حسب الأقرب لك فوراً!');
+          render();
+        },
+        (err) => {
+          console.warn('GPS Error:', err);
+          showToast('تعذر الوصول لموقعك الحالي. تأكد من تفعيل إذن الموقع أو اختر من القائمة.');
+          gpsStatusText.textContent = currentOrigin.name;
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    });
+
+    // فلترة المسارات
+    routesFilterContainer.addEventListener('click', (e) => {
+      const pill = e.target.closest('.route-pill');
+      if (!pill) return;
+      document.querySelectorAll('.route-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeRoute = pill.dataset.route;
+      render();
+    });
+
+    // البحث
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      clearSearchBtn.style.display = searchQuery ? 'block' : 'none';
+      render();
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      clearSearchBtn.style.display = 'none';
+      render();
+    });
+
+    resetFiltersBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      activeRoute = 'all';
+      document.querySelectorAll('.route-pill').forEach(p => p.classList.toggle('active', p.dataset.route === 'all'));
+      render();
+    });
+
+    // تبديل العرض بين البطاقات والجدول
+    viewCardsBtn.addEventListener('click', () => {
+      currentView = 'cards';
+      viewCardsBtn.classList.add('active');
+      viewTableBtn.classList.remove('active');
+      render();
+    });
+
+    viewTableBtn.addEventListener('click', () => {
+      currentView = 'table';
+      viewTableBtn.classList.add('active');
+      viewCardsBtn.classList.remove('active');
+      render();
+    });
+
+    // عكس ترتيب المسافة
+    sortDistanceBtn.addEventListener('click', () => {
+      sortDistanceAsc = !sortDistanceAsc;
+      render();
+      showToast(sortDistanceAsc ? 'الترتيب: من الأقرب إلى الأبعد' : 'الترتيب: من الأبعد إلى الأقرب');
+    });
+
+    // تصدير جدول المبيعات والزيارات لإكسل
+    function exportSalesCSV() {
+      const data = getProcessedCafes();
+      let csvContent = "\uFEFFالترتيب,المسار الميداني,اسم الكافيه,المسافة,الحي,العنوان,رقم الهاتف,خرائط جوجل المباشرة,حالة الزيارة,استهداف المبيعات,ملاحظات المندوب\n";
+      data.forEach((c, idx) => {
+        const statusArabic = c.status === 'done' ? 'تم البيع / مهتم' : (c.status === 'followup' ? 'متابعة' : (c.status === 'rejected' ? 'غير مهتم' : 'لم تتم الزيارة'));
+        csvContent += `"${idx + 1}","${c.route_zone}","${c.name}","${c.distanceFormatted}","${c.area}","${c.address}","${c.phone}","${c.maps_url}","${statusArabic}","${c.sales_notes}","${(c.note || '').replace(/"/g, '""')}"\n`;
+      });
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `خطة_زيارات_كافيهات_الخبر_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('جارٍ تحميل ملف خطة الزيارات للإكسل...');
+    }
+
+    document.getElementById('download-sales-csv').addEventListener('click', exportSalesCSV);
+    document.getElementById('download-csv-footer').addEventListener('click', exportSalesCSV);
+
+    // التشغيل الأولي
+    render();
+  </script>
+</body>
+</html>

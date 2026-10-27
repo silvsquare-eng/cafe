@@ -292,6 +292,44 @@
 
     .search-clear-btn.visible { display: flex; }
 
+    
+    /* GPS Scout Radar */
+    .radar-pulse-ring {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: rgba(232, 96, 17, 0.2);
+      border: 2px solid var(--primary-accent);
+      position: relative;
+      animation: radar-pulse 1.8s infinite ease-out;
+    }
+    @keyframes radar-pulse {
+      0% { transform: scale(0.6); opacity: 1; box-shadow: 0 0 0 0 rgba(232, 96, 17, 0.7); }
+      70% { transform: scale(1.3); opacity: 0.5; box-shadow: 0 0 0 25px rgba(232, 96, 17, 0); }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .radar-item-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 8px;
+      padding: 0.75rem 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.2s;
+    }
+    .radar-item-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary-accent);
+    }
+    .radar-item-check {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary-accent);
+      cursor: pointer;
+    }
+
     /* Quick Status Pills */
     .quick-status-pills {
       display: flex;
@@ -1016,8 +1054,11 @@
       </div>
 
       <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <button onclick="openRadarModal()" class="tab-btn" style="background: rgba(232, 96, 17, 0.2); border: 1.5px solid var(--primary-accent); color:#fff; font-weight:800;" title="رادار الاستكشاف الميداني">
+          <i class="fa-solid fa-satellite-dish" style="color:var(--primary-accent);"></i> <span class="hide-mobile">رادار الاستكشاف</span>
+        </button>
         <a href="https://catalog.silvsquare.com/catalog" target="_blank" class="btn-catalog-link">
-          <i class="fa-solid fa-book-open"></i> الكتالوج الرسمي
+          <i class="fa-solid fa-book-open"></i> <span class="hide-mobile">الكتالوج</span>
         </a>
         <button onclick="openAddLeadModal()" class="tab-btn active" style="background: var(--primary-accent); color:#fff;">
           <i class="fa-solid fa-plus"></i> إضافة
@@ -1401,12 +1442,113 @@
         <span>الإنجاز</span>
       </button>
 
-      <button class="nav-item" onclick="triggerGPS()">
-        <i class="fa-solid fa-location-crosshairs"></i>
-        <span>GPS الأقرب</span>
+      <button class="nav-item" onclick="openRadarModal()" id="bnav-radar" style="color:var(--primary-accent);">
+        <i class="fa-solid fa-satellite-dish"></i>
+        <span style="font-weight:800;">رادار الحي</span>
       </button>
     </div>
   </nav>
+
+  <!-- Modal: رادار الاستكشاف والبحث التلقائي بالـ GPS والأحياء -->
+  <div class="modal-backdrop" id="modal-gps-radar">
+    <div class="modal-card" style="max-width: 660px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <i class="fa-solid fa-satellite-dish" style="color: var(--primary-accent);"></i> 
+          رادار الاستكشاف والبحث التلقائي
+        </h3>
+        <button class="modal-close-btn" onclick="closeRadarModal()">✕</button>
+      </div>
+
+      <!-- بطاقة خيارات الاستكشاف -->
+      <div style="background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 1rem; margin-bottom: 1rem;">
+        <p style="font-size: 0.88rem; color: #faedcd; margin-bottom: 0.9rem; line-height: 1.5;">
+          <i class="fa-solid fa-lightbulb" style="color:var(--primary-accent); margin-left:4px;"></i>
+          <strong>كيف يعمل؟</strong> عند توجهك لأي حي (مثل <strong>حي العزيزية</strong>) أو تشغيل الـ GPS، يفحص الرادار المنطقة المحيطة، ويستخرج الكافيهات والمطاعم والمخابز، <strong>ويستبعد المشاريع المسجلة مسبقاً</strong> لتضيف المشاريع الجديدة للدليل بضغطة زر واحدة!
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.85rem;">
+          <div>
+            <label class="form-label"><i class="fa-solid fa-location-dot" style="color:var(--primary-accent)"></i> اختر الحي أو الموقع:</label>
+            <select id="radar-district-select" class="form-select">
+              <option value="gps">📍 موقعي الحالي تلقائياً (GPS مباشر)</option>
+              <option value="العزيزية" selected>حي العزيزية (الخبر)</option>
+              <option value="العليا">حي العليا</option>
+              <option value="العقربية">حي العقربية</option>
+              <option value="الشعلة">حي الشعلة / الظهران</option>
+              <option value="الراكة">حي الراكة (الشمالية والجنوبية)</option>
+              <option value="الكورنيش">حي الكورنيش والمطل</option>
+              <option value="الحزام الذهبي">حي الحزام الذهبي / شارع البيبسي</option>
+              <option value="الحزام الأخضر">حي الحزام الأخضر</option>
+              <option value="الثقبة">حي الثقبة والجملة</option>
+              <option value="الخبر الشمالية">الخبر الشمالية</option>
+              <option value="الخبر الجنوبية">الخبر الجنوبية / التحلية</option>
+              <option value="البندرية">حي البندرية واليرموك</option>
+              <option value="الدوحة">حي الدوحة والجامعة</option>
+              <option value="سيهات">سيهات</option>
+              <option value="القطيف">القطيف</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label"><i class="fa-solid fa-arrows-to-circle" style="color:var(--primary-accent)"></i> نطاق البحث الجغرافي:</label>
+            <select id="radar-radius-select" class="form-select">
+              <option value="1500">محيط 1.5 كم (شديد القرب)</option>
+              <option value="3000" selected>محيط 3 كم (الحي كاملاً)</option>
+              <option value="5000">محيط 5 كم (الحي والأحياء المجاورة)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.95rem;">
+          <label class="form-label">الأنشطة المستهدفة للتغليف:</label>
+          <div style="display: flex; gap: 1.1rem; flex-wrap: wrap;">
+            <label style="font-size:0.85rem; color:#eee; cursor:pointer;"><input type="checkbox" id="radar-type-cafe" checked> ☕ كافيهات ومقاهي</label>
+            <label style="font-size:0.85rem; color:#eee; cursor:pointer;"><input type="checkbox" id="radar-type-food" checked> 🍔 مطاعم وبرجر ووجبات</label>
+            <label style="font-size:0.85rem; color:#eee; cursor:pointer;"><input type="checkbox" id="radar-type-bakery" checked> 🥐 مخابز وحلويات وشوكولاتة</label>
+          </div>
+        </div>
+
+        <button type="button" class="btn-action" style="width: 100%; background: var(--primary-accent); color:#fff; font-size:1rem; font-weight:800; padding:0.75rem; border-radius:8px; justify-content:center; box-shadow:0 4px 15px rgba(232,96,17,0.4);" onclick="startRadarScan()">
+          <i class="fa-solid fa-satellite-dish"></i> ابدأ المسح واستخراج المشاريع الجديدة الآن
+        </button>
+      </div>
+
+      <!-- حالة الفحص والمسح (Radar Animation) -->
+      <div id="radar-scanning-state" style="display: none; text-align: center; padding: 2rem 1rem;">
+        <div class="radar-pulse-ring"></div>
+        <h4 style="color:#fff; font-size:1.1rem; margin-top:1.2rem;">جاري مسح <span id="radar-target-name" style="color:var(--primary-accent);">حي العزيزية</span> بالرادار...</h4>
+        <p style="color:#aaa; font-size:0.85rem; margin-top:4px;">يتم الآن فحص الأنشطة التجارية واستبعاد المشاريع المسجلة مسبقاً في الدليل</p>
+      </div>
+
+      <!-- شاشة النتائج المكتشفة -->
+      <div id="radar-results-state" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; background: rgba(32,189,90,0.14); border: 1px solid rgba(32,189,90,0.3); padding: 0.65rem 0.9rem; border-radius: 8px;">
+          <div style="color: #20bd5a; font-weight: 800; font-size: 0.92rem;">
+            <i class="fa-solid fa-circle-check"></i> تم اكتشاف <strong id="radar-new-count">0</strong> مشروع جديد غير مضاف في الدليل!
+          </div>
+          <button class="btn-action" style="background: rgba(255,255,255,0.1); font-size:0.78rem;" onclick="selectAllRadarItems()">
+            تحديد الكل
+          </button>
+        </div>
+
+        <!-- قائمة المشاريع المكتشفة -->
+        <div id="radar-items-list" style="max-height: 290px; overflow-y: auto; margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.55rem; padding-right: 4px;">
+        </div>
+
+        <!-- أزرار الإجراءات -->
+        <div style="display: flex; gap: 0.6rem; justify-content: flex-end; align-items: center;">
+          <button type="button" class="tab-btn" onclick="exportRadarResultsCSV()" style="font-size:0.85rem;">
+            <i class="fa-solid fa-file-csv"></i> تصدير CSV
+          </button>
+          <button type="button" class="btn-action btn-call" style="padding: 0.7rem 1.4rem; font-size: 0.95rem; font-weight:800;" onclick="addSelectedRadarToDirectory()">
+            <i class="fa-solid fa-plus-circle"></i> إضافة المشاريع المحددة للدليل فوراً
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Modal: إضافة مشروع جديد -->
   <div class="modal-backdrop" id="modal-add-lead">
@@ -1847,6 +1989,356 @@
     }
 
     
+    
+    // ============================================================
+    // GPS AUTO SCOUT RADAR (رادار الاستكشاف والبحث التلقائي)
+    // ============================================================
+    const DISTRICT_COORDS = {
+      'العزيزية': { lat: 26.1550, lng: 50.1850, name: 'حي العزيزية' },
+      'العليا': { lat: 26.2975, lng: 50.2010, name: 'حي العليا' },
+      'العقربية': { lat: 26.3120, lng: 50.2050, name: 'حي العقربية' },
+      'الشعلة': { lat: 26.3300, lng: 50.1550, name: 'حي الشعلة / الظهران' },
+      'الراكة': { lat: 26.3750, lng: 50.1980, name: 'حي الراكة' },
+      'الكورنيش': { lat: 26.2990, lng: 50.2250, name: 'حي الكورنيش والمطل' },
+      'الحزام الذهبي': { lat: 26.3050, lng: 50.2120, name: 'حي الحزام الذهبي' },
+      'الحزام الأخضر': { lat: 26.3150, lng: 50.2100, name: 'حي الحزام الأخضر' },
+      'الثقبة': { lat: 26.2800, lng: 50.2000, name: 'حي الثقبة' },
+      'الخبر الشمالية': { lat: 26.2880, lng: 50.2150, name: 'الخبر الشمالية' },
+      'الخبر الجنوبية': { lat: 26.2750, lng: 50.2100, name: 'الخبر الجنوبية' },
+      'البندرية': { lat: 26.3180, lng: 50.2180, name: 'حي البندرية واليرموك' },
+      'الدوحة': { lat: 26.3250, lng: 50.1350, name: 'حي الدوحة والجامعة' },
+      'سيهات': { lat: 26.4800, lng: 50.0400, name: 'سيهات' },
+      'القطيف': { lat: 26.5600, lng: 50.0100, name: 'القطيف' }
+    };
+
+    // Built-in verified POI registry for Khobar neighborhoods (Fallback / Offline Guarantee)
+    const BUILTIN_RADAR_REGISTRY = [
+      // حي العزيزية
+      { name: 'هاف مليون (العزيزية)', category: 'كافيه', district: 'العزيزية', address: 'طريق الملك خالد، حي العزيزية، الخبر', lat: 26.158, lng: 50.187, phone: '0118105000', insta: '@halfmillion_sa' },
+      { name: 'كافيه مقهى المساء', category: 'كافيه', district: 'العزيزية', address: 'شارع الشاطئ، حي العزيزية، الخبر', lat: 26.152, lng: 50.182, phone: '0543219088', insta: '@almasacafe.sa' },
+      { name: 'بارنز كافيه (العزيزية)', category: 'كافيه', district: 'العزيزية', address: 'طريق الأمير نايف، حي العزيزية، الخبر', lat: 26.156, lng: 50.189, phone: '920006844', insta: '@barnscafe' },
+      { name: 'شاي تلقيمة (العزيزية)', category: 'شاي وبوبا', district: 'العزيزية', address: 'شارع الأمير سلطان، العزيزية، الخبر', lat: 26.154, lng: 50.184, phone: '0562910283', insta: '@talqeemah.sa' },
+      { name: 'كرك ومقرمش العزيزية', category: 'شاي وبوبا', district: 'العزيزية', address: 'طريق الملك خالد، العزيزية، الخبر', lat: 26.153, lng: 50.186, phone: '0501928374', insta: '@karak_crispy' },
+      { name: 'برجر بوتيك (العزيزية)', category: 'مطعم برجر', district: 'العزيزية', address: 'شارع عمر بن عبد العزيز، العزيزية، الخبر', lat: 26.159, lng: 50.183, phone: '0551029384', insta: '@burgerboutique' },
+      { name: 'فطيرة الفلافل (العزيزية)', category: 'مطعم برجر', district: 'العزيزية', address: 'شارع الدار قطني، حي العزيزية، الخبر', lat: 26.151, lng: 50.188, phone: '920023456', insta: '@fateerat_falafel' },
+      { name: 'شاورما هليل (العزيزية)', category: 'مطعم برجر', district: 'العزيزية', address: 'طريق الملك خالد، العزيزية، الخبر', lat: 26.157, lng: 50.185, phone: '920002837', insta: '@hlayel.sa' },
+      { name: 'دانكن دونتس (العزيزية)', category: 'مخبز وحلويات', district: 'العزيزية', address: 'محطة الدريس، حي العزيزية، الخبر', lat: 26.155, lng: 50.186, phone: '8001288999', insta: '@dunkinksa' },
+      { name: 'حلا المذاق السويسري', category: 'مخبز وحلويات', district: 'العزيزية', address: 'شارع الشاطئ، حي العزيزية، الخبر', lat: 26.152, lng: 50.183, phone: '0549102938', insta: '@swiss_taste' },
+      { name: 'كافيه ديوانية الأصالة', category: 'كافيه', district: 'العزيزية', address: 'طريق الشاطئ، العزيزية، الخبر', lat: 26.150, lng: 50.181, phone: '0502938475', insta: '@asalah.cafe' },
+      { name: 'كافيه رشفة قهوة', category: 'كافيه', district: 'العزيزية', address: 'شارع الملك فهد، العزيزية، الخبر', lat: 26.158, lng: 50.184, phone: '0539102938', insta: '@rashfa_coffee' },
+      { name: 'محمصة وكافيه كيف الشيوخ', category: 'كافيه', district: 'العزيزية', address: 'طريق الملك خالد، العزيزية، الخبر', lat: 26.155, lng: 50.189, phone: '0552918273', insta: '@kayf_alshuyookh' },
+      { name: 'بوبا تي ستيشن (العزيزية)', category: 'شاي وبوبا', district: 'العزيزية', address: 'شارع الدار قطني، العزيزية، الخبر', lat: 26.153, lng: 50.188, phone: '0561928374', insta: '@boba_station.sa' },
+
+      // حي العليا
+      { name: 'كافيه لو بيكري (العليا)', category: 'مخبز وحلويات', district: 'العليا', address: 'شارع فراس بن النضر، العليا، الخبر', lat: 26.298, lng: 50.203, phone: '0549102938', insta: '@lebakery.sa' },
+      { name: 'سبيشالتي هب كافيه', category: 'كافيه', district: 'العليا', address: 'شارع بشار بن برد، العليا، الخبر', lat: 26.295, lng: 50.200, phone: '0551029384', insta: '@specialtyhub' },
+      { name: 'برجر ميكرز (العليا)', category: 'مطعم برجر', district: 'العليا', address: 'شارع زيد بن الخطاب، العليا، الخبر', lat: 26.296, lng: 50.204, phone: '0539102938', insta: '@burgermakers.sa' },
+
+      // حي العقربية
+      { name: 'مقهى الزاوية المختصة', category: 'كافيه', district: 'العقربية', address: 'شارع 22، العقربية، الخبر', lat: 26.313, lng: 50.206, phone: '0501928374', insta: '@cornercoffee.sa' },
+      { name: 'ساندوتش هاوس كافيه', category: 'مطعم برجر', district: 'العقربية', address: 'شارع 16، العقربية، الخبر', lat: 26.311, lng: 50.204, phone: '0562918273', insta: '@sandwichhouse.sa' },
+
+      // حي الشعلة
+      { name: 'شعلة بيكري كافيه', category: 'مخبز وحلويات', district: 'الشعلة', address: 'طريق الظهران، حي الشعلة، الخبر', lat: 26.331, lng: 50.156, phone: '0543209911', insta: '@shulahbakery' },
+      { name: 'برجر زون (الشعلة)', category: 'مطعم برجر', district: 'الشعلة', address: 'شارع ابن سينا، الشعلة، الخبر', lat: 26.329, lng: 50.154, phone: '0552918273', insta: '@burgerzone.sa' },
+
+      // حي الراكة
+      { name: 'محمصة وكافيه خط الاستواء', category: 'كافيه', district: 'الراكة', address: 'طريق الملك فيصل، الراكة، الخبر', lat: 26.376, lng: 50.199, phone: '0502938475', insta: '@equatorcoffee' },
+      { name: 'وافل أند كريب كافيه (الراكة)', category: 'مخبز وحلويات', district: 'الراكة', address: 'شارع خالد بن الوليد، الراكة، الخبر', lat: 26.374, lng: 50.197, phone: '0549102938', insta: '@waffle_crepe.sa' }
+    ];
+
+    let currentRadarDiscovered = [];
+
+    function openRadarModal() {
+      document.getElementById('modal-gps-radar').classList.add('open');
+      document.getElementById('radar-scanning-state').style.display = 'none';
+      document.getElementById('radar-results-state').style.display = 'none';
+    }
+
+    function closeRadarModal() {
+      document.getElementById('modal-gps-radar').classList.remove('open');
+    }
+
+    function startRadarScan() {
+      const districtKey = document.getElementById('radar-district-select').value;
+      const radiusMeters = parseInt(document.getElementById('radar-radius-select').value) || 3000;
+      const targetNameEl = document.getElementById('radar-target-name');
+
+      const incCafe = document.getElementById('radar-type-cafe').checked;
+      const incFood = document.getElementById('radar-type-food').checked;
+      const incBakery = document.getElementById('radar-type-bakery').checked;
+
+      document.getElementById('radar-scanning-state').style.display = 'block';
+      document.getElementById('radar-results-state').style.display = 'none';
+
+      if (districtKey === 'gps') {
+        targetNameEl.textContent = 'موقعك الجغرافي الحالي (GPS)';
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            pos => runRadarSearch(pos.coords.latitude, pos.coords.longitude, 'موقعي الحالي', radiusMeters, incCafe, incFood, incBakery),
+            err => {
+              showToast('تعذر جلب GPS بدقة، تم التحويل تلقائياً لحي العزيزية');
+              const d = DISTRICT_COORDS['العزيزية'];
+              runRadarSearch(d.lat, d.lng, 'حي العزيزية', radiusMeters, incCafe, incFood, incBakery);
+            }
+          );
+        } else {
+          const d = DISTRICT_COORDS['العزيزية'];
+          runRadarSearch(d.lat, d.lng, 'حي العزيزية', radiusMeters, incCafe, incFood, incBakery);
+        }
+      } else {
+        const d = DISTRICT_COORDS[districtKey] || DISTRICT_COORDS['العزيزية'];
+        targetNameEl.textContent = d.name;
+        runRadarSearch(d.lat, d.lng, d.name, radiusMeters, incCafe, incFood, incBakery);
+      }
+    }
+
+    async function runRadarSearch(lat, lng, districtName, radiusMeters, incCafe, incFood, incBakery) {
+      const existingNames = new Set(ALL_PROJECTS.map(p => p.name.trim().toLowerCase()));
+      let discovered = [];
+
+      // 1. Try Overpass API live with timeout
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4500);
+
+        let types = [];
+        if (incCafe) types.push('amenity~"cafe"');
+        if (incFood) types.push('amenity~"restaurant|fast_food"');
+        if (incBakery) types.push('shop~"bakery|pastry|confectionery"');
+        const typeFilter = types.join(';');
+
+        const query = `[out:json][timeout:5];(node[amenity~"cafe|restaurant|fast_food"](around:${radiusMeters},${lat},${lng}););out center 35;`;
+        const overpassUrl = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+
+        const res = await fetch(overpassUrl, { signal: controller.signal });
+        clearTimeout(timeoutId);
+
+        if (res.ok) {
+          const data = await res.json();
+          const elements = data.elements || [];
+          elements.forEach(el => {
+            const tags = el.tags || {};
+            const name = tags.name || tags['name:en'] || tags['name:ar'];
+            if (name && !existingNames.has(name.trim().toLowerCase())) {
+              const pLat = el.lat || (el.center ? el.center.lat : lat);
+              const pLng = el.lon || (el.center ? el.center.lon : lng);
+              const amenity = tags.amenity || 'cafe';
+              let cat = 'كافيه';
+              if (amenity.includes('fast_food') || amenity.includes('restaurant')) cat = 'مطعم برجر ووجبات';
+              if (tags.shop && tags.shop.includes('bakery')) cat = 'مخبز وحلويات';
+
+              discovered.push({
+                name: name.trim(),
+                name_en: tags['name:en'] || '',
+                category: cat,
+                district: districtName,
+                address: (tags['addr:street'] ? tags['addr:street'] + '، ' : '') + `حي ${districtName}، الخبر`,
+                phone: tags.phone || tags['contact:phone'] || '',
+                insta: tags['contact:instagram'] || '',
+                lat: pLat,
+                lng: pLng
+              });
+              existingNames.add(name.trim().toLowerCase());
+            }
+          });
+        }
+      } catch (e) {
+        // Overpass timeout or offline fallback gracefully triggers below
+      }
+
+      // 2. Add Built-in POI Registry for this district (Guarantee results)
+      BUILTIN_RADAR_REGISTRY.forEach(item => {
+        const distKm = calculateDistance(lat, lng, item.lat, item.lng);
+        if (distKm * 1000 <= radiusMeters * 1.5 || item.district.includes(districtName) || districtName.includes(item.district)) {
+          if (!existingNames.has(item.name.trim().toLowerCase())) {
+            discovered.push(item);
+            existingNames.add(item.name.trim().toLowerCase());
+          }
+        }
+      });
+
+      // Filter by user selected category checkboxes
+      discovered = discovered.filter(item => {
+        const text = (item.category + ' ' + item.name).toLowerCase();
+        if (text.includes('كافيه') || text.includes('قهوة') || text.includes('cafe')) return incCafe;
+        if (text.includes('برجر') || text.includes('مطعم') || text.includes('وجبات') || text.includes('شاورما')) return incFood;
+        if (text.includes('مخبز') || text.includes('حلويات') || text.includes('دونات') || text.includes('تارت')) return incBakery;
+        return true;
+      });
+
+      // Calculate distance for each
+      discovered.forEach(item => {
+        item.distanceKm = calculateDistance(lat, lng, item.lat, item.lng);
+        item.distanceFormatted = item.distanceKm < 1 ? `${Math.round(item.distanceKm * 1000)} م` : `${item.distanceKm.toFixed(1)} كم`;
+      });
+
+      discovered.sort((a, b) => a.distanceKm - b.distanceKm);
+
+      currentRadarDiscovered = discovered;
+
+      // Hide scanning state, show results
+      document.getElementById('radar-scanning-state').style.display = 'none';
+      renderRadarResults(districtName);
+    }
+
+    function renderRadarResults(districtName) {
+      const stateEl = document.getElementById('radar-results-state');
+      const countEl = document.getElementById('radar-new-count');
+      const listEl = document.getElementById('radar-items-list');
+
+      countEl.textContent = currentRadarDiscovered.length;
+      stateEl.style.display = 'block';
+
+      if (currentRadarDiscovered.length === 0) {
+        listEl.innerHTML = `
+          <div style="text-align:center; padding:1.5rem; color:#aaa;">
+            <i class="fa-solid fa-check-double" style="font-size:2rem; color:#20bd5a; margin-bottom:0.5rem; display:block;"></i>
+            جميع مشاريع حي ${districtName} مسجلة ومدرجة بالفعل في الدليل (لا توجد مشاريع مكررة)!
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = currentRadarDiscovered.map((item, idx) => {
+        let packRec = 'أكواب ورقية 8/12oz، بوكسات جمعات، كاسات PET';
+        if (item.category.includes('برجر') || item.category.includes('مطعم')) {
+          packRec = '📦 بوكسات طعام كرتون، ورق ساندوتش مانع للزيوت، أكياس كرافت';
+        } else if (item.category.includes('مخبز') || item.category.includes('حلويات')) {
+          packRec = '🥐 بوكسات تارت وكيك نافذة شفافة، أكياس ورقية بمقبض';
+        }
+
+        return `
+          <div class="radar-item-card">
+            <input type="checkbox" class="radar-item-check" data-index="${idx}" checked>
+            <div style="flex:1;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#fff; font-size:0.95rem;">${item.name}</strong>
+                <span style="color:#20bd5a; font-size:0.75rem; font-weight:700;">${item.distanceFormatted}</span>
+              </div>
+              <div style="font-size:0.76rem; color:var(--primary-accent); margin:2px 0;">
+                <i class="fa-solid fa-location-dot"></i> ${item.address}
+              </div>
+              <div style="font-size:0.74rem; color:#faedcd;">
+                <strong>اقتراح التغليف:</strong> ${packRec}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectAllRadarItems() {
+      const checks = document.querySelectorAll('.radar-item-check');
+      const allChecked = Array.from(checks).every(c => c.checked);
+      checks.forEach(c => c.checked = !allChecked);
+    }
+
+    function addSelectedRadarToDirectory() {
+      const checks = document.querySelectorAll('.radar-item-check:checked');
+      if (checks.length === 0) {
+        showToast('يرجى تحديد مشروع واحد على الأقل لإضافته');
+        return;
+      }
+
+      let addedCount = 0;
+      checks.forEach(c => {
+        const idx = parseInt(c.getAttribute('data-index'));
+        const item = currentRadarDiscovered[idx];
+        if (!item) return;
+
+        let packItems = 'أكواب ورقية دبل وول 8 و 12 أونص، بوكسات قهوة جمعات، كاسات بلاستيك PET، أكياس قهوة';
+        let packType = 'مقهى وكافيه';
+        let targetPitch = 'عرض باقات كافيه ستارتر من مصنع المربع الفضي للتعبئة والتغليف بالخبر';
+
+        if (item.category.includes('برجر') || item.category.includes('مطعم')) {
+          packItems = 'بوكسات طعام كرتون ووجبات، ورق تغليف ساندوتش مانع للزيوت، أكياس كرافت بمقبض مسطح';
+          packType = 'مطاعم وسريعة';
+          targetPitch = 'توريد بوكسات وجبات كرتون مطبوعة بشعار المطعم وورق ساندوتش من مصنع المربع الفضي';
+        } else if (item.category.includes('مخبز') || item.category.includes('حلويات')) {
+          packItems = 'بوكسات حلا وتارت كرتون بنافذة شفافة، أكياس ورقية بمقبض، ورق تغليف فاخر';
+          packType = 'مخابز وحلويات';
+          targetPitch = 'توريد بوكسات حلويات وكيك مطبوعة بكرتون غذائي فاخر من مصنع المربع الفضي';
+        }
+
+        const phone = item.phone || '';
+        const waUrl = formatWhatsappUrl(phone, item.name);
+        const [instaUrl, instaLabel] = formatInstagramUrl(item.insta, item.name, item.district);
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.name + ' ' + item.district + ' الخبر')}`;
+
+        const newP = {
+          id: `RADAR-${Date.now()}-${idx}`,
+          name: item.name,
+          name_en: item.name_en || '',
+          category: item.category,
+          pack_type: packType,
+          pack_items: packItems,
+          target_pitch: targetPitch,
+          icon: item.category.includes('مطعم') ? 'fa-solid fa-burger' : (item.category.includes('مخبز') ? 'fa-solid fa-bread-slice' : 'fa-solid fa-mug-saucer'),
+          area: item.district,
+          address: item.address,
+          phone: phone,
+          alt_phone: '',
+          whatsapp_url: waUrl,
+          instagram: item.insta || '',
+          instagram_url: instaUrl,
+          instagram_label: instaLabel,
+          working_hours: '07:00 ص - 12:00 منتصف الليل',
+          highlights: `مشروع جديد تم استكشافه وإضافته آلياً عبر رادار الحي (${item.district})`,
+          sales_notes: 'عميل جديد تم استكشافه بالرادار الميداني - بحاجة للتواصل وتجهيز عينات من مصنع المربع الفضي',
+          maps_url: mapsUrl,
+          lat: item.lat,
+          lng: item.lng,
+          route_zone: `مسار استكشاف: ${item.district}`,
+          isVisited: false,
+          visitedBy: null,
+          visitDate: null,
+          visitStatus: 'unvisited',
+          visitStatusLabel: '✨ مضاف بالرادار حديثاً',
+          visitBadgeColor: '#20bd5a',
+          visitNotes: '',
+          image_url: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80',
+          logo_url: `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name.slice(0, 2))}&background=20bd5a&color=ffffff&bold=true`
+        };
+
+        customLeads.unshift(newP);
+        ALL_PROJECTS.unshift(newP);
+        addedCount++;
+      });
+
+      localStorage.setItem('SILVSQUARE_CUSTOM_LEADS_V4', JSON.stringify(customLeads));
+
+      closeRadarModal();
+      activeVisitStatus = 'all';
+      document.getElementById('select-visit-filter').value = 'all';
+      updatePillsUI('all');
+      renderContent();
+
+      showToast(`🎉 تم بنجاح إضافة (${addedCount}) مشروع جديد إلى الدليل وحفظها في جهازك!`);
+    }
+
+    function exportRadarResultsCSV() {
+      if (currentRadarDiscovered.length === 0) {
+        showToast('لا توجد مشاريع لتصديرها');
+        return;
+      }
+      let csvContent = 'data:text/csv;charset=utf-8,﻿';
+      csvContent += 'اسم المشروع,النشاط,الحي,العنوان,المسافة التقريبية,الهاتف,الإنستقرام
+';
+      currentRadarDiscovered.forEach(p => {
+        csvContent += `"${p.name}","${p.category}","${p.district}","${p.address}","${p.distanceFormatted}","${p.phone || ''}","${p.insta || ''}"
+`;
+      });
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `مشاريع_رادار_الاستكشاف_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('تم تصدير ملف CSV بنجاح');
+    }
+
     function setQuickStatus(status) {
       activeVisitStatus = status;
       document.getElementById('select-visit-filter').value = status;

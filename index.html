@@ -2322,16 +2322,13 @@
         showToast('لا توجد مشاريع لتصديرها');
         return;
       }
-      let csvContent = 'data:text/csv;charset=utf-8,﻿';
-      csvContent += 'اسم المشروع,النشاط,الحي,العنوان,المسافة التقريبية,الهاتف,الإنستقرام
-';
+      let csvRows = ['اسم المشروع,النشاط,الحي,العنوان,المسافة التقريبية,الهاتف,الإنستقرام'];
       currentRadarDiscovered.forEach(p => {
-        csvContent += `"${p.name}","${p.category}","${p.district}","${p.address}","${p.distanceFormatted}","${p.phone || ''}","${p.insta || ''}"
-`;
+        csvRows.push(`"${p.name}","${p.category}","${p.district}","${p.address}","${p.distanceFormatted}","${p.phone || ''}","${p.insta || ''}"`);
       });
-      const encodedUri = encodeURI(csvContent);
+      const csvContent = 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURIComponent(csvRows.join('\n'));
       const link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
+      link.setAttribute('href', csvContent);
       link.setAttribute('download', `مشاريع_رادار_الاستكشاف_${Date.now()}.csv`);
       document.body.appendChild(link);
       link.click();
